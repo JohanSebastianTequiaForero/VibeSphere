@@ -1,0 +1,148 @@
+/* Fondo general */
+.register-container {
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: flex-start; /* 🔥 Pega el contenido arriba */
+  min-height: 100vh; /* Mantiene pantalla completa */
+  background: linear-gradient(200deg, #2c004a, #9b6cc2,rgb(27, 45, 211));;
+  padding-top: 80px; /* Espacio fijo arriba */
+}
+
+
+/* Caja del formulario */
+.register-card {
+  background-color: #9b6cc2; /* morado suave */
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  width: 300px;
+  text-align: center;
+}
+
+
+.register-card h2 {
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* Inputs, select y textarea (estándar) */
+.register-card input,
+.register-card select,
+.register-card textarea {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+/* Textarea igual que inputs */
+.register-card textarea {
+  resize: none; /* No redimensionar */
+  height: 100px; /* Igual que inputs */
+}
+
+/* Contenedor para input file */
+.file-upload {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* Ocultar input nativo */
+.file-upload input[type="file"] {
+  display: none;
+}
+
+/* Botón personalizado para archivo */
+.file-upload label {
+  display: block;
+  background: #5e009a;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.file-upload label:hover {
+  background: #4a007a;
+}
+
+/* Nombre de archivo seleccionado */
+.file-name {
+  font-size: 0.85rem;
+  color: #fff;
+  margin-top: 5px;
+  text-align: center;
+}
+
+/* Botones */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+button {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.volver {
+  background-color: #c2b6d9;
+}
+
+.registrar {
+  background-color: #5e009a;
+  color: white;
+}
+
+.login-link {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.login-link a {
+  color: #ffffff; /* Blanco */
+  font-size: 15px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+  color: #562fb3; /* Rosa suave al pasar el mouse */
+  text-decoration: underline;
+}
+
+
+/* Lado derecho con logo */
+.register-logo {
+  margin-left: 50px;
+}
+
+.register-logo img {
+  max-width: 500px;
+  border-radius: 8px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+
