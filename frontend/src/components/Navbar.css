@@ -1,0 +1,36 @@
+.navbar {
+  background: linear-gradient(190deg, #2c004a, #9b6cc2,rgb(27, 45, 211));;
+  color: white;
+  padding: 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Logo */
+.navbar-logo {
+  width: 40px;
+  height: auto;
+  cursor: pointer;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+/* Botón de inicio de sesión */
+.navbar-login {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+}

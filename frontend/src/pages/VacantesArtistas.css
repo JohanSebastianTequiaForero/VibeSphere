@@ -1,0 +1,258 @@
+/* Contenedor principal */
+.vacantesartistas-container {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #1e1b4b, #4c1d95, #000);
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 20%;
+  background: linear-gradient(to bottom, #0891b2, #164e63);
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0 1.5rem 1.5rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  animation: slideInLeft 0.8s ease-in-out;
+}
+
+.sidebar-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.sidebar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.sidebar-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-list li:hover {
+  color: #facc15;
+  transform: translateX(6px);
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.main-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+/* Secciones principales */
+.content-sections {
+  display: flex;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+/* Categorías */
+.categorias {
+  width: 25%;
+  background: linear-gradient(to bottom, #9333ea, #5b21b6);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  animation: slideInUp 0.9s ease-in-out;
+}
+
+.categorias h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.categorias ul {
+  list-style: none;
+  padding: 0;
+}
+
+.categorias li {
+  background: #6d28d9;
+  padding: 0.6rem;
+  border-radius: 0.6rem;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.categorias li:hover {
+  background: #7c3aed;
+  transform: scale(1.05);
+}
+
+/* Vacantes */
+.vacantes {
+  width: 25%;
+  background: linear-gradient(to bottom, #2563eb, #3730a3);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  animation: slideInUp 1s ease-in-out;
+}
+
+.vacantes h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.vacante {
+  background: #1e3a8a;
+  padding: 1rem;
+  border-radius: 0.6rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.vacante:hover {
+  transform: translateY(-4px);
+}
+
+.vacante button {
+  background: white;
+  color: #1e3a8a;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.vacante button:hover {
+  background: #e5e7eb;
+}
+
+/* Aplicados */
+.aplicados {
+  flex: 1;
+  background: linear-gradient(to bottom, #db2777, #9d174d);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  animation: slideInUp 1.1s ease-in-out;
+}
+
+.aplicados h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.aplicado-card {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  padding: 1rem;
+  font-size: 0.95rem;
+  transition: transform 0.3s ease;
+}
+
+.aplicado-card:hover {
+  transform: scale(1.05);
+}
+
+.aplicado-card h3 {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.aplicado-card .email {
+  margin-top: 0.6rem;
+  color: #facc15;
+}
+
+.aplicado-card button {
+  margin-top: 1rem;
+  background: white;
+  color: #be185d;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 0.6rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.aplicado-card button:hover {
+  background: #e5e7eb;
+}
+
+/* Animaciones */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .content-sections {
+    flex-direction: column;
+  }
+  .categorias, .vacantes, .aplicados {
+    width: 100%;
+  }
+  .sidebar {
+    width: 100%;
+    border-radius: 0 0 1.5rem 1.5rem;
+    flex-direction: row;
+    justify-content: space-around;
+    animation: slideInUp 0.8s ease-in-out;
+  }
+  .sidebar-list {
+    display: flex;
+    gap: 1rem;
+  }
+  .sidebar-list li {
+    margin-bottom: 0;
+  }
+}

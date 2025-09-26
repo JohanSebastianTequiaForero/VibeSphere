@@ -1,0 +1,220 @@
+/* Contenedor principal */
+.contratista-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e3a8a);
+  color: white;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: linear-gradient(180deg, #06b6d4, #0a2540);
+  border-radius: 0 20px 20px 0;
+  padding: 30px 15px;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 18px 0;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.3s ease, transform 0.2s;
+}
+
+.sidebar li:hover {
+  color: #facc15;
+  transform: translateX(5px);
+}
+
+.icon {
+  font-size: 20px;
+}
+
+/* Área principal */
+.main {
+  flex: 1;
+  padding: 20px 40px;
+}
+
+/* Barra de búsqueda */
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 10px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+
+.search-btn {
+  background: #0ea5e9;
+  border: none;
+  border-radius: 50%;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.crear-btn {
+  background: #22c55e;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.crear-btn:hover {
+  background: #16a34a;
+}
+
+/* Contenido en dos columnas */
+.content {
+  display: flex;
+  gap: 25px;
+}
+
+/* Contratos */
+.contratos {
+  flex: 1;
+  background: linear-gradient(145deg, #9333ea, #6d28d9);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.contratos h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.contratos ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contratos li {
+  background: #7e22ce;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.contratos li:hover {
+  background: #a855f7;
+  transform: scale(1.05);
+}
+
+/* Postulados */
+.postulados {
+  flex: 1;
+  background: linear-gradient(145deg, #2563eb, #1e3a8a);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.postulados h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.vacante {
+  background: #1d4ed8;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.vacante:hover {
+  background: #3b82f6;
+  transform: scale(1.05);
+}
+/* Overlay del modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  backdrop-filter: blur(5px);
+}
+
+/* Contenido del modal */
+.modal-content {
+  background: #5a3ec8;
+  color: white;
+  padding: 25px;
+  border-radius: 15px;
+  width: 450px;
+  max-height: 80%;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-content h2 {
+  margin-bottom: 15px;
+}
+
+.modal-content img {
+  width: 90%;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  margin-bottom: 20px;
+}
+
+.close-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #3b2a7e;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.close-btn:hover {
+  background: #2c1f63;
+}

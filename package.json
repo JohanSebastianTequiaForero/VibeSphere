@@ -1,0 +1,35 @@
+{
+  "name": "miproyecto",
+  "version": "1.0.0",
+  "description": "├──Miproyecto/\r |\r |\r ├── backend/\r │ ├── src/\r │ │ ├── controllers/\r │ │ ├── models/\r │ │ ├── routes/\r │ │ └── app.js\r │ ├── package.json\r │ └── .env (desde .env.example)\r ├── frontend/\r │ ├── public/\r │ ├── src/\r │ │ ├── assets/\r │ │ ├── components/\r │ │ └── pages/\r │ ├── package.json\r │ └── .env (desde .env.example)\r ├── db/\r │ └── init.js (opcional: seeds/scripts)\r ├── docs/\r │ ├── arquitectura.md\r │ ├── requerimientos.md\r │ ├── Guia_EstandaresCodigo.md\r │ └── Git_Workflow.md\r └── README.md",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "react-scripts test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohanSebastianTequiaForero/Proyecto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohanSebastianTequiaForero/Proyecto/issues"
+  },
+  "homepage": "https://github.com/JohanSebastianTequiaForero/Proyecto#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.0",
+    "mysql2": "^3.14.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
