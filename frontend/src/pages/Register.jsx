@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUsuario, checkUsuarioOCorreo } from "../services/userService";
-import { Eye, EyeOff } from "lucide-react"; // 👁 asegúrate de tener esta librería instalada
+import { Eye, EyeOff } from "lucide-react";
+import { motion } from "framer-motion";
 import "./Register.css";
 
 function Register() {
@@ -17,6 +18,7 @@ function Register() {
     competencias: "",
     foto_perfil: null,
     categoria_id: "",
+    descripcion: "",
   });
 
   const [errors, setErrors] = useState({
@@ -30,12 +32,10 @@ function Register() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  // 🔹 Validación de inputs normales
   const handleChange = async (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
 
-    // Validar fecha de nacimiento
     if (name === "fecha_nacimiento") {
       const hoy = new Date();
       const nacimiento = new Date(value);
@@ -50,7 +50,6 @@ function Register() {
       }));
     }
 
-    // Validar correo
     if (name === "correo" && value.includes("@")) {
       const res = await checkUsuarioOCorreo({ correo: value });
       setErrors((prev) => ({
@@ -60,7 +59,6 @@ function Register() {
     }
   };
 
-  // 🔹 Validación de archivo
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file && !["image/png", "image/jpeg"].includes(file.type)) {
@@ -71,7 +69,6 @@ function Register() {
     setForm({ ...form, foto_perfil: file });
   };
 
-  // 🔹 Enviar formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -87,31 +84,43 @@ function Register() {
       return;
     }
 
-    console.log("Datos enviados:", form);
-
     try {
       const res = await createUsuario(form);
-      if (res.error) {
-        alert(res.error);
+
+      if (!res.success) {
+        alert(res.message || "❌ Error al registrar usuario");
         return;
       }
-      alert("Usuario registrado con éxito");
-      navigate("/");
+
+      alert("✅ Registro exitoso. Revisa tu correo para verificar tu cuenta antes de iniciar sesión.");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 4000);
     } catch (error) {
       console.error(error);
-      alert("Error al registrar usuario");
+      alert("🚨 Error en el servidor");
     }
   };
 
   return (
-    <div className="register-container">
+    <motion.div
+      className="register-container"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -40 }}
+      transition={{ duration: 0.6 }}
+    >
       <div className="register-card">
-        <h2>REGISTRARSE</h2>
+        <h2>📝 Registro</h2>
+        <p>Crea tu cuenta para comenzar tu viaje musical en VibeSphere.</p>
         <form onSubmit={handleSubmit}>
           {/* Nombre */}
+          <label htmlFor="nombre">Nombre</label>
           <input
             type="text"
             name="nombre"
+            id="nombre"
             placeholder="Tu nombre"
             value={form.nombre}
             maxLength={30}
@@ -129,9 +138,11 @@ function Register() {
           {errors.nombre && <p className="error">{errors.nombre}</p>}
 
           {/* Apellidos */}
+          <label htmlFor="apellidos">Apellidos</label>
           <input
             type="text"
             name="apellidos"
+            id="apellidos"
             placeholder="Tus apellidos"
             value={form.apellidos}
             maxLength={30}
@@ -149,9 +160,11 @@ function Register() {
           {errors.apellidos && <p className="error">{errors.apellidos}</p>}
 
           {/* Fecha nacimiento */}
+          <label htmlFor="fecha_nacimiento">Fecha de Nacimiento</label>
           <input
             type="date"
             name="fecha_nacimiento"
+            id="fecha_nacimiento"
             value={form.fecha_nacimiento}
             max={new Date().toISOString().split("T")[0]}
             onChange={handleChange}
@@ -160,9 +173,11 @@ function Register() {
           {errors.fecha_nacimiento && <p className="error">{errors.fecha_nacimiento}</p>}
 
           {/* Correo */}
+          <label htmlFor="correo">Correo</label>
           <input
             type="email"
             name="correo"
+            id="correo"
             placeholder="Tu correo"
             value={form.correo}
             onChange={handleChange}
@@ -171,9 +186,11 @@ function Register() {
           {errors.correo && <p className="error">{errors.correo}</p>}
 
           {/* Nombre de usuario */}
+          <label htmlFor="nombre_usuario">Nombre de Usuario</label>
           <input
             type="text"
             name="nombre_usuario"
+            id="nombre_usuario"
             placeholder="Nombre de usuario"
             value={form.nombre_usuario}
             maxLength={30}
@@ -200,10 +217,12 @@ function Register() {
           {errors.nombre_usuario && <p className="error">{errors.nombre_usuario}</p>}
 
           {/* Contraseña */}
+          <label htmlFor="password">Contraseña</label>
           <div className="password-field">
             <input
               type={showPassword ? "text" : "password"}
               name="password"
+              id="password"
               placeholder="Contraseña"
               value={form.password}
               onChange={(e) => {
@@ -222,8 +241,6 @@ function Register() {
               }}
               required
             />
-
-            {/* 👁 Botón toggle */}
             <button
               type="button"
               className="toggle-password"
@@ -233,10 +250,10 @@ function Register() {
             </button>
           </div>
           {errors.password && <p className="error">{errors.password}</p>}
-          
 
           {/* Rol */}
-          <select name="rol_id" value={form.rol_id} onChange={handleChange} required>
+          <label htmlFor="rol_id">Rol</label>
+          <select name="rol_id" id="rol_id" value={form.rol_id} onChange={handleChange} required>
             <option value="">Selecciona tu rol</option>
             <option value="1">Artista</option>
             <option value="2">Contratista</option>
@@ -245,8 +262,10 @@ function Register() {
           {/* Si es ARTISTA */}
           {form.rol_id === "1" && (
             <>
+              <label htmlFor="competencias">Competencias</label>
               <textarea
                 name="competencias"
+                id="competencias"
                 placeholder="Escribe tus competencias para destacar en tu perfil"
                 value={form.competencias}
                 onChange={(e) => {
@@ -275,18 +294,46 @@ function Register() {
 
           {/* Si es CONTRATISTA */}
           {form.rol_id === "2" && (
-            <select
-              name="categoria_id"
-              value={form.categoria_id}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Selecciona categoría</option>
-              <option value="1">Medios y Comunicación Musical</option>
-              <option value="2">Grupo Musical/Banda</option>
-              <option value="3">Eventos y Espectáculos</option>
-              <option value="4">Educación y Formación</option>
-            </select>
+            <>
+              <label htmlFor="categoria_id">Categoría</label>
+              <select
+                name="categoria_id"
+                id="categoria_id"
+                value={form.categoria_id}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Selecciona categoría</option>
+                <option value="1">Medios y Comunicación Musical</option>
+                <option value="2">Grupo Musical/Banda</option>
+                <option value="3">Eventos y Espectáculos</option>
+                <option value="4">Educación y Formación</option>
+              </select>
+
+              <label htmlFor="descripcion">Descripción</label>
+              <textarea
+                name="descripcion"
+                id="descripcion"
+                placeholder="Describe brevemente tu empresa (opcional)"
+                value={form.descripcion || ""}
+                onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
+                maxLength={300}
+                className="styled-textarea"
+              />
+              <p>{form.descripcion?.length || 0}/300 caracteres</p>
+
+              <div className="file-upload">
+                <label htmlFor="foto_perfil">Subir logo o foto de la empresa</label>
+                <input
+                  type="file"
+                  id="foto_perfil"
+                  name="foto_perfil"
+                  accept=".png, .jpg, .jpeg"
+                  onChange={handleFileChange}
+                />
+                {form.foto_perfil && <p className="file-name">{form.foto_perfil.name}</p>}
+              </div>
+            </>
           )}
 
           {/* Botones */}
@@ -300,12 +347,9 @@ function Register() {
           </div>
         </form>
       </div>
-
-      <div className="register-logo">
-        <img src="/logo.jpg" alt="VibeSphere" />
-      </div>
-    </div>
+    </motion.div>
   );
 }
 
 export default Register;
+

@@ -25,7 +25,7 @@
   padding: 2rem;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  width: 300px;
+  width: 600px;
   text-align: center;
 
   /* 🔥 Animación de entrada */
@@ -156,6 +156,64 @@ button:hover {
   transition: all 0.3s ease;
 }
 
+/* ============================= */
+/* 🔹 Estilos adicionales CONTRATISTA */
+/* ============================= */
+
+/* Textareas largas (descripcion) */
+.styled-textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  max-height: 200px;
+  background: #f9f9f9;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.styled-textarea:focus {
+  transform: scale(1.02);
+  box-shadow: 0 0 10px rgba(0, 162, 255, 0.7);
+}
+
+/* Contador de caracteres */
+.register-card p {
+  font-size: 12px;
+  text-align: right;
+  margin-top: -5px;
+  margin-bottom: 10px;
+  color: #dcdcdc;
+  font-style: italic;
+}
+
+/* Diferenciar secciones artista / contratista */
+.section-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: left;
+  margin: 10px 0 5px;
+  border-left: 3px solid #00a2ff;
+  padding-left: 6px;
+  animation: fadeIn 1s ease;
+}
+
+/* Subida de archivos (contratista y artista, más consistente) */
+.file-upload label {
+  background: linear-gradient(145deg, #006eff, #025fd8 65%, #073c91);
+  font-size: 13px;
+}
+
+.file-upload label:hover {
+  background: #1a4ddb;
+}
+
 .registrar:hover {
   background: #5e1cda;
   transform: scale(1.07);
@@ -220,12 +278,14 @@ button:hover {
   position: absolute;
   right: 10px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-38%); /* centra fijo el ícono */
   background: none;
   border: none;
   cursor: pointer;
-  color: #333;
-  transition: transform 0.2s ease;
+  color: #7f0fff;
+  font-size: 18px; /* tamaño fijo */
+  line-height: 0;
+  padding: 0;
 }
 
 .toggle-password:hover {

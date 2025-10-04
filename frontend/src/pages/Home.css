@@ -1,132 +1,73 @@
-/* Fondo principal con gradiente animado */
-.home-container {
+/* src/pages/Home.css */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #0A1D37, #4B0082);
+  color: #fff;
   min-height: 100vh;
-  color: white;
-  background: linear-gradient(-45deg, #111827, #1e1b4b, #312e81, #000);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-/* Animación del gradiente */
-@keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Hero */
-.hero-section {
+.home-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px;
   text-align: center;
-  padding: 8rem 2rem 4rem;
-  z-index: 1;
 }
 
-.hero-title {
-  font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 1.5rem;
+.home-header {
+  margin-bottom: 40px;
 }
 
-.hero-title .highlight {
-  color: #a855f7; /* Morado */
+.home-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  color: #FFD166;
 }
 
-.hero-text {
-  font-size: 1.2rem;
-  max-width: 700px;
-  margin: 0 auto 2rem;
-  line-height: 1.6;
-}
-
-.hero-buttons {
+.roles-container {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 30px;
 }
 
-.btn {
-  padding: 0.8rem 1.5rem;
-  border-radius: 1rem;
+.role-card {
+  background: #1c2f52;
+  padding: 25px;
+  border-radius: 15px;
+  width: 300px;
+  text-align: left;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+}
+
+.role-card h2 {
+  color: #3A86FF;
+}
+
+.role-card p {
+  margin: 15px 0;
+}
+
+.role-link {
+  display: inline-block;
+  margin-top: 10px;
+  background: #FFD166;
+  padding: 10px 15px;
+  border-radius: 8px;
   font-weight: bold;
+  color: #000;
   text-decoration: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: background 0.3s;
 }
 
-.btn:hover {
-  transform: translateY(-3px);
+.role-link:hover {
+  background: #ffb703;
 }
-
-.purple-btn {
-  background: #7e22ce;
-  color: white;
-}
-
-.purple-btn:hover {
-  background: #9333ea;
-}
-
-.blue-btn {
-  background: #4338ca;
-  color: white;
-}
-
-.blue-btn:hover {
-  background: #4f46e5;
-}
-
-/* Features */
-.features-section {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  padding: 3rem 2rem;
-  background: rgba(0, 0, 0, 0.4);
-  width: 100%;
-  z-index: 1;
-}
-
-@media (min-width: 768px) {
-  .features-section {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.card {
-  padding: 1.5rem;
-  border-radius: 1.2rem;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease;
-}
-
-.card h3 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.8rem;
-}
-
-.card p {
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-.purple-card {
-  background: linear-gradient(to bottom right, #6d28d9, #4338ca);
-}
-
-.blue-card {
-  background: linear-gradient(to bottom right, #2563eb, #4f46e5);
-}
-
-.pink-card {
-  background: linear-gradient(to bottom right, #db2777, #9333ea);
+footer {
+  margin-top: 50px;
+  padding: 20px;
+  background: #3A86FF;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
 }

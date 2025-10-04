@@ -1,54 +1,55 @@
+// src/pages/Home.jsx
 import { motion } from "framer-motion";
-import "./Home.css"; // Importa el CSS
+import { Link } from "react-router-dom";
+import "./Home.css";
 
 export default function Home() {
   return (
     <div className="home-container">
-      {/* Hero section */}
-      <div className="hero-section">
-        <motion.h1
-          initial={{ opacity: 0, y: -40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="hero-title"
-        >
-          Bienvenido a <span className="highlight">VibeSphere</span>
-        </motion.h1>
+      <motion.header 
+        className="home-header"
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+         <div className="page">
+      <h1>🏠 Bienvenido a VibeSphere</h1>
+      <p>
+        Aquí comienza tu experiencia musical. Explora artistas, descubre contratistas
+        y encuentra oportunidades para crecer en la industria.
+      </p>
+    </div>
+      </motion.header>
 
-        <motion.p
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="hero-text"
+      <div className="roles-container">
+        {/* Artista */}
+        <motion.div 
+          className="role-card"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          La plataforma donde artistas, contratistas y espectadores conectan 
-          para impulsar la música y crear nuevas oportunidades.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="hero-buttons"
-        >
-          <a href="/register" className="btn purple-btn">Únete ahora</a>
-          <a href="/explorar" className="btn blue-btn">Explorar</a>
-        </motion.div>
-      </div>
-
-      {/* Features */}
-      <div className="features-section">
-        <motion.div whileHover={{ scale: 1.05 }} className="card purple-card">
-          <h3>🎤 Artistas</h3>
-          <p>Promociona tu música, conecta con fans y encuentra contratistas.</p>
+          <h2>🎤 Soy Artista</h2>
+          <p>
+            Comparte tu talento, muestra tu música y conecta con contratistas que 
+            buscan dar vida a sus eventos. 
+          </p>
+          <Link to="/artista" className="role-link">Descubre más</Link>
         </motion.div>
 
-        <motion.div whileHover={{ scale: 1.05 }} className="card blue-card">
-          <h3>🤝 Contratistas</h3>
-          <p>Descubre nuevos talentos y gestiona contrataciones fácilmente.</p>
+        {/* Contratista */}
+        <motion.div 
+          className="role-card"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <h2>📅 Soy Contratista</h2>
+          <p>
+            Encuentra artistas de calidad, organiza eventos y lleva experiencias 
+            únicas a tu público. 
+          </p>
+          <Link to="/contratista" className="role-link">Descubre más</Link>
         </motion.div>
       </div>
     </div>
   );
 }
-

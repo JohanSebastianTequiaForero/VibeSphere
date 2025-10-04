@@ -2,6 +2,7 @@ import "./Login.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { login } from "../services/loginService"; // ✅ Importar el servicio
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -13,7 +14,7 @@ function Login() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Enviar formulario al backend
+  // Enviar formulario al backend usando el servicio
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -23,24 +24,18 @@ function Login() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ correo: form.email, password: form.password }),
-      });
+      const res = await login(form.email, form.password); // ✅ Llamada al service
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.message || "❌ Correo o contraseña incorrectos");
+      if (!res.success) {
+        setError(res.message || "❌ Error en el inicio de sesión");
         return;
       }
 
-      // Guardar usuario en localStorage (o Context/Redux)
-      localStorage.setItem("usuario", JSON.stringify(data.usuario));
+      // Guardar usuario en localStorage
+      localStorage.setItem("usuario", JSON.stringify(res.data));
 
       setError("");
-      navigate("/home"); // Redirige tras login
+      navigate("/"); // Redirige tras login
     } catch (err) {
       setError("🚨 Error en el servidor, intenta más tarde");
     }
@@ -53,14 +48,14 @@ function Login() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Caja del formulario */}
       <motion.div
         className="login-box"
         initial={{ x: -80, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <h2>INICIA SESIÓN</h2>
+        <h2>🔑 Iniciar Sesión</h2>
+        <p>Accede a tu cuenta para continuar explorando VibeSphere.</p>
 
         {/* Mensaje de error */}
         {error && <p className="error-message">{error}</p>}
@@ -103,7 +98,6 @@ function Login() {
         </form>
       </motion.div>
 
-      {/* Imagen lateral */}
       <motion.div
         className="login-image"
         initial={{ x: 80, opacity: 0 }}
@@ -117,3 +111,6 @@ function Login() {
 }
 
 export default Login;
+
+
+

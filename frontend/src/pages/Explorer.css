@@ -1,0 +1,120 @@
+/* src/pages/Explorer.css */
+.explorer-page {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px;
+  color: #fff;
+  line-height: 1.6;
+}
+
+.explorer-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.explorer-header h1 {
+  font-size: 2.5rem;
+  color: #FFD166;
+}
+
+.explorer-header p {
+  font-size: 1.2rem;
+  color: #ddd;
+}
+
+.explorer-section {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+.explorer-section.reverse {
+  flex-direction: row-reverse;
+}
+
+.explorer-section img {
+  width: 350px;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+}
+
+.explorer-section h2 {
+  color: #3A86FF;
+  margin-bottom: 15px;
+}
+
+.explorer-section ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+.explorer-section p {
+  margin-top: 10px;
+}
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  margin: 60px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #0a1d37, #4b0082);
+  border-radius: 12px;
+  color: white;
+}
+
+.section.reverse {
+  flex-direction: row-reverse; /* Para alternar texto e imagen */
+}
+
+.section img {
+  max-width: 350px; /* 🔹 Máximo ancho */
+  width: 100%; /* 🔹 Que sea flexible */
+  height: auto; /* 🔹 Mantener proporción */
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
+}
+
+.section img:hover {
+  transform: scale(1.05); /* 🔹 Zoom sutil al pasar el mouse */
+}
+
+.section-content {
+  flex: 1;
+}
+
+.section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #3a86ff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* 🔹 Responsivo para móviles */
+@media (max-width: 768px) {
+  .section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .section.reverse {
+    flex-direction: column; /* No alterna en móvil, se ve limpio */
+  }
+
+  .section img {
+    max-width: 250px;
+  }
+}
+.section ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
