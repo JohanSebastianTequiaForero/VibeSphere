@@ -1,24 +1,91 @@
 // src/components/Navbar.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [user, setUser] = useState(null);
+  const { usuario, logout } = useAuth();
   const navigate = useNavigate();
 
-  // Cargar usuario desde localStorage
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) setUser(storedUser);
-  }, []);
+  // DEBUG: descomenta si quieres ver en consola qué trae "usuario"
+  // console.log("DEBUG usuario desde Navbar:", usuario);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
+    logout();
     navigate("/login");
   };
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
+  // Obtiene el "valor" del rol sin asumir la propiedad exacta
+  const obtenerValorRol = (u) => {
+    if (!u) return null;
+
+    // posibles nombres que puede traer el backend/frontend
+    const posibles = [
+      "rol_id",
+      "rolId",
+      "roleId",
+      "role",
+      "rol",
+      "role_name",
+      "roleName",
+    ];
+
+    for (const key of posibles) {
+      if (Object.prototype.hasOwnProperty.call(u, key) && u[key] !== undefined && u[key] !== null) {
+        return u[key];
+      }
+    }
+
+    // a veces la info está anidada (p.ej: u.data?.rol_id)
+    if (u.data && typeof u.data === "object") {
+      for (const key of posibles) {
+        if (Object.prototype.hasOwnProperty.call(u.data, key) && u.data[key] !== undefined && u.data[key] !== null) {
+          return u.data[key];
+        }
+      }
+    }
+
+    return null;
+  };
+
+  // Normaliza y devuelve el nombre humano del rol
+  const obtenerNombreRol = (valorRol) => {
+    if (!valorRol && valorRol !== 0) return "Sin rol";
+
+    // si viene un número en string -> convertir
+    const maybeNumber = Number(valorRol);
+    if (!isNaN(maybeNumber)) {
+      if (maybeNumber === 1) return "Artista";
+      if (maybeNumber === 2) return "Contratista";
+      // agregar más roles numéricos si existen
+    }
+
+    // si viene texto ya descriptivo
+    const v = String(valorRol).toLowerCase();
+    if (v.includes("art") || v === "artista") return "Artista";
+    if (v.includes("contr") || v === "contratista" || v === "contractor") return "Contratista";
+    if (v === "admin") return "Administrador";
+    // fallback: capitalizar primera letra si es otro valor de texto
+    return v.charAt(0).toUpperCase() + v.slice(1);
+  };
+
+  // obtener nombre y rol limpio
+  const valorRol = obtenerValorRol(usuario);
+  const nombreRol = obtenerNombreRol(valorRol);
+
+  // nombre del usuario: revisar distintos campos posibles
+  const obtenerNombreUsuario = (u) => {
+    if (!u) return null;
+    return u.nombre || u.name || u.username || u.nombre_usuario || (u.data && (u.data.nombre || u.data.name)) || null;
+  };
+
+  const nombreUsuarioMostrar = obtenerNombreUsuario(usuario) || "Invitado";
 
   return (
     <aside
@@ -26,51 +93,57 @@ const Navbar = () => {
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
     >
-      {/* 🔹 Header con logo */}
-      <div className="sidebar-header">
-        {isExpanded ? (
-          <h2>🎶 VibeSphere</h2>
-        ) : (
-          <h2>🎶</h2>
-        )}
-      </div>
+      <div className="sidebar-header">{isExpanded ? <h2>🎶 VibeSphere</h2> : <h2>🎶</h2>}</div>
 
-      {/* 🔹 Links principales */}
       <nav className="sidebar-nav">
         <Link to="/home">🏠 {isExpanded && "Home"}</Link>
         <Link to="/explorer">🌍 {isExpanded && "Explorer"}</Link>
 
-        {user?.role === "artista" && (
-          <Link to="/artista">🎤 {isExpanded && "Artist"}</Link>
-        )}
-        {user?.role === "contratista" && (
-          <Link to="/contratista">💼 {isExpanded && "Contractor"}</Link>
+        {/* enlaces dinámicos por rol (usamos nombreRol para decidir) */}
+        {valorRol && (String(valorRol) === "1" || String(valorRol).toLowerCase().includes("art")) && (
+          <>
+            <Link to="/artista">🎤 {isExpanded && "Artista"}</Link>
+            <Link to="/VacantesArtistas">🎵 {isExpanded && "Vacantes"}</Link>
+          </>
         )}
 
-        <Link to="/contratos">📑 {isExpanded && "Contracts"}</Link>
+        {valorRol && (String(valorRol) === "2" || String(valorRol).toLowerCase().includes("contr")) && (
+          <>
+            <Link to="/contratista">💼 {isExpanded && "Contratista"}</Link>
+            <Link to="/VacantesArtistas">🧾 {isExpanded && "Gestionar Vacantes"}</Link>
+          </>
+        )}
+
+        {usuario && <Link to="/contratos">📑 {isExpanded && "Contratos"}</Link>}
       </nav>
 
-      {/* 🔹 Footer con info usuario */}
       <div className="sidebar-footer">
-        {isExpanded ? (
+        {usuario ? (
           <>
-            <p className="user-info">
-              👤 {user?.name || ""}
-              <br />
-              <small>({user?.role || "sin rol"})</small>
-            </p>
+            {isExpanded && (
+              <p className="user-info">
+                👤 {nombreUsuarioMostrar}
+                <br />
+                <small>({nombreRol})</small>
+              </p>
+            )}
             <button onClick={handleLogout} className="logout-btn">
-              🚪 Cerrar sesión
+              🚪 {isExpanded ? "Cerrar sesión" : ""}
             </button>
           </>
         ) : (
-          <span
-            title="Cerrar sesión"
-            onClick={handleLogout}
-            className="logout-icon"
-          >
-            🚪
-          </span>
+          <>
+            {isExpanded && (
+              <p className="user-info">
+                👋 ¡Bienvenido!
+                <br />
+                <small>Inicia sesión para explorar</small>
+              </p>
+            )}
+            <button onClick={handleLogin} className="login-btn">
+              🔐 {isExpanded ? "Iniciar sesión" : ""}
+            </button>
+          </>
         )}
       </div>
     </aside>
@@ -78,3 +151,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

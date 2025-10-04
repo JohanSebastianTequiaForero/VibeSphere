@@ -1,5 +1,9 @@
+// src/App.jsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import { AuthProvider } from "./context/AuthContext"; // ✅ Importar el Provider
+import ProtectedRoute from "./routes/ProtectedRoute"; // ✅ Importar la protección
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -14,20 +18,54 @@ import "./App.css";
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/VacantesArtistas" element={<VacantesArtistas />} />
-        <Route path="/Explorer" element={<Explorer />} />
-        <Route path="/Artista" element={<Artista />} />
-        <Route path="/Contratista" element={<Contratista />} />
-        <Route path="/verify/:token" element={<Verify />} />
-        <Route path="/" element={<Explorer />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Navbar />
+
+        <Routes>
+          {/* 🔓 Rutas públicas */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/verify/:token" element={<Verify />} />
+          <Route path="/Explorer" element={<Explorer />} />
+      
+
+          {/* 🔒 Rutas protegidas */}
+          <Route
+            path="/Home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/VacantesArtistas"
+            element={
+              <ProtectedRoute>
+                <VacantesArtistas />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/Artista"
+            element={
+              <ProtectedRoute>
+                <Artista />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/Contratista"
+            element={
+              <ProtectedRoute>
+                <Contratista />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

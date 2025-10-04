@@ -1,13 +1,24 @@
+// src/pages/Login.jsx
 import "./Login.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { login } from "../services/loginService"; // ✅ Importar el servicio
+import { login } from "../services/loginService";
+import { useAuth } from "../context/AuthContext"; // ✅ Contexto para persistencia
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login: loginUser, usuario } = useAuth(); // ✅ leer usuario actual también
+
+  // 🚫 Si ya hay sesión activa, redirige al home
+  useEffect(() => {
+    const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
+    if (usuario || usuarioGuardado) {
+      navigate("/home");
+    }
+  }, [usuario, navigate]);
 
   // Capturar cambios en los inputs
   const handleChange = (e) => {
@@ -24,19 +35,21 @@ function Login() {
     }
 
     try {
-      const res = await login(form.email, form.password); // ✅ Llamada al service
+      const res = await login(form.email, form.password);
 
       if (!res.success) {
         setError(res.message || "❌ Error en el inicio de sesión");
         return;
       }
 
-      // Guardar usuario en localStorage
+      // ✅ Guardar usuario en contexto y en localStorage
+      loginUser(res.data);
       localStorage.setItem("usuario", JSON.stringify(res.data));
 
       setError("");
-      navigate("/"); // Redirige tras login
+      navigate("/home"); // Redirige tras login
     } catch (err) {
+      console.error(err);
       setError("🚨 Error en el servidor, intenta más tarde");
     }
   };
@@ -111,6 +124,5 @@ function Login() {
 }
 
 export default Login;
-
 
 

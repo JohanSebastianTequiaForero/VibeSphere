@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUsuario, checkUsuarioOCorreo } from "../services/userService";
 import { Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
+import { useAuth } from "../context/AuthContext"; // ✅ para leer sesión
 import "./Register.css";
 
 function Register() {
   const navigate = useNavigate();
+  const { usuario } = useAuth(); // ✅ leer usuario activo
   const [form, setForm] = useState({
     nombre: "",
     apellidos: "",
@@ -31,6 +33,14 @@ function Register() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+
+  // 🚫 Si ya hay sesión activa, redirige al home
+  useEffect(() => {
+    const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
+    if (usuario || usuarioGuardado) {
+      navigate("/home");
+    }
+  }, [usuario, navigate]);
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
