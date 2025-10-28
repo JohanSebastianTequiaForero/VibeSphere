@@ -3,6 +3,7 @@ import "./Login.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Eye, EyeOff } from "lucide-react";
 import { login } from "../services/loginService";
 import { useAuth } from "../context/AuthContext"; // ✅ Contexto para persistencia
 
@@ -11,12 +12,13 @@ function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login: loginUser, usuario } = useAuth(); // ✅ leer usuario actual también
+  const [showPassword, setShowPassword] = useState(false);
 
-  // 🚫 Si ya hay sesión activa, redirige al home
+  // 🚫 Si ya hay sesión activa, redirige al Explorer
   useEffect(() => {
     const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
     if (usuario || usuarioGuardado) {
-      navigate("/home");
+      navigate("/Explorer");
     }
   }, [usuario, navigate]);
 
@@ -47,7 +49,7 @@ function Login() {
       localStorage.setItem("usuario", JSON.stringify(res.data));
 
       setError("");
-      navigate("/home"); // Redirige tras login
+      navigate("/explorer"); // Redirige tras login
     } catch (err) {
       console.error(err);
       setError("🚨 Error en el servidor, intenta más tarde");
@@ -74,6 +76,7 @@ function Login() {
         {error && <p className="error-message">{error}</p>}
 
         <form onSubmit={handleSubmit}>
+          <label htmlFor="nombre">Correo</label>
           <input
             type="email"
             name="email"
@@ -82,15 +85,26 @@ function Login() {
             onChange={handleChange}
             required
           />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="Contraseña"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
+          
+          <label htmlFor="password">Contraseña</label>
+          <div className="password-field">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Contraseña"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
+          
 
           <a href="#" className="forgot-link">
             ¿Olvidaste tu contraseña?

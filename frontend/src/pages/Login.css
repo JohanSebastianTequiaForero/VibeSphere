@@ -97,7 +97,29 @@
   margin-bottom: 10px;
   text-align: center;
 }
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
+.password-field input {
+  width: 100%;
+  padding-right: 40px; /* espacio para el ícono */
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #5c00e6; /* 💜 púrpura suave */
+}
+
+.toggle-password:hover {
+  color: #8b33ff;
+}
 /* Responsive */
 @media (max-width: 900px) {
   .login-container {

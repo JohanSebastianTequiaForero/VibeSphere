@@ -93,7 +93,15 @@ const Navbar = () => {
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
     >
-      <div className="sidebar-header">{isExpanded ? <h2>🎶 VibeSphere</h2> : <h2>🎶</h2>}</div>
+      {/* 🔹 Header con logo */}
+      <div className={`sidebar-header ${isExpanded ? "expanded" : "collapsed"}`}>
+  <img
+    src="../iconoo.png"
+    alt="Logo VibeSphere"
+    className={`sidebar-logo ${isExpanded ? "expanded" : "collapsed"}`}
+  />
+  {isExpanded && <h2 className="sidebar-title">VibeSphere</h2>}
+</div>
 
       <nav className="sidebar-nav">
         <Link to="/home">🏠 {isExpanded && "Home"}</Link>
@@ -110,7 +118,7 @@ const Navbar = () => {
         {valorRol && (String(valorRol) === "2" || String(valorRol).toLowerCase().includes("contr")) && (
           <>
             <Link to="/contratista">💼 {isExpanded && "Contratista"}</Link>
-            <Link to="/VacantesArtistas">🧾 {isExpanded && "Gestionar Vacantes"}</Link>
+            <Link to="/VacantesContratista">🧾 {isExpanded && "Gestionar Vacantes"}</Link>
           </>
         )}
 
@@ -151,4 +159,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

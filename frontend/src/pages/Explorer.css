@@ -1,120 +1,101 @@
-/* src/pages/Explorer.css */
+/* src/pages/Home.css */
+/* 🔹 Espaciado para no tapar el navbar */
 .explorer-page {
   max-width: 1200px;
-  margin: auto;
+  margin-left: 270px; /* ✅ deja espacio para el sidebar */
   padding: 40px;
   color: #fff;
   line-height: 1.6;
+  transition: margin-left 0.3s ease;
 }
 
+/* Si el sidebar se colapsa o es más pequeño, puedes usar esta clase */
+.sidebar-collapsed .explorer-page {
+  margin-left: 90px;
+}
+
+.explorer-page {
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Encabezado */
 .explorer-header {
   text-align: center;
   margin-bottom: 50px;
 }
-
 .explorer-header h1 {
-  font-size: 2.5rem;
+  font-size: 2.4rem;
   color: #FFD166;
 }
-
 .explorer-header p {
-  font-size: 1.2rem;
   color: #ddd;
+  font-size: 1.1rem;
 }
 
-.explorer-section {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  margin-bottom: 60px;
-  flex-wrap: wrap;
-}
-
-.explorer-section.reverse {
-  flex-direction: row-reverse;
-}
-
-.explorer-section img {
-  width: 350px;
-  border-radius: 15px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.5);
-}
-
-.explorer-section h2 {
-  color: #3A86FF;
-  margin-bottom: 15px;
-}
-
-.explorer-section ul {
-  margin-top: 10px;
-  padding-left: 20px;
-}
-.explorer-section p {
-  margin-top: 10px;
-}
-.section {
+/* 🔹 Card base */
+.explorer-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 40px;
-  margin: 60px 0;
-  padding: 20px;
-  background: linear-gradient(135deg, #0a1d37, #4b0082);
-  border-radius: 12px;
-  color: white;
+  background: rgba(30, 30, 60, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  margin-bottom: 50px;
+  padding: 25px;
+  gap: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.section.reverse {
-  flex-direction: row-reverse; /* Para alternar texto e imagen */
+.explorer-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.6);
 }
 
-.section img {
-  max-width: 350px; /* 🔹 Máximo ancho */
-  width: 100%; /* 🔹 Que sea flexible */
-  height: auto; /* 🔹 Mantener proporción */
+/* 🔹 Imagen */
+.explorer-card img {
+  width: 320px;
+  height: 320px;
+  object-fit: cover;
   border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-  transition: transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
-.section img:hover {
-  transform: scale(1.05); /* 🔹 Zoom sutil al pasar el mouse */
-}
-
-.section-content {
+/* 🔹 Contenido */
+.card-content {
   flex: 1;
 }
-
-.section h2 {
-  font-size: 1.8rem;
-  margin-bottom: 15px;
-  color: #3a86ff;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.card-content h2 {
+  color: #3A86FF;
+  margin-bottom: 10px;
 }
-
-.section p {
-  font-size: 1rem;
+.card-content p, 
+.card-content ul {
+  color: #eee;
   line-height: 1.6;
+  font-size: 1rem;
 }
 
-/* 🔹 Responsivo para móviles */
+/* 🔹 Versión invertida */
+.explorer-card.reverse {
+  flex-direction: row-reverse;
+}
+
+/* 🔹 Responsivo */
 @media (max-width: 768px) {
-  .section {
+  .explorer-card {
     flex-direction: column;
     text-align: center;
   }
-
-  .section.reverse {
-    flex-direction: column; /* No alterna en móvil, se ve limpio */
+  .explorer-card.reverse {
+    flex-direction: column;
   }
-
-  .section img {
-    max-width: 250px;
+  .explorer-card img {
+    width: 250px;
+    height: 250px;
   }
-}
-.section ul {
-  margin-top: 10px;
-  padding-left: 20px;
 }

@@ -12,6 +12,8 @@ import VacantesArtistas from "./pages/VacantesArtistas";
 import Explorer from "./pages/Explorer";
 import Artista from "./pages/Artista";
 import Contratista from "./pages/Contratista";
+import PanelContratista from "./pages/PanelContratista";
+import VacantesContratista from "./pages/VacantesContratista";
 import Verify from "./pages/Verify";
 import Navbar from "./components/Navbar";
 import "./App.css";
@@ -44,6 +46,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <VacantesArtistas />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/VacantesContratista"
+            element={
+              <ProtectedRoute>
+                <VacantesContratista />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/PanelContratista"
+            element={
+              <ProtectedRoute>
+                <PanelContratista />
               </ProtectedRoute>
             }
           />
