@@ -19,17 +19,17 @@
 .role-img {
   width: 280px;
   border-radius: 15px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
 }
 
 .role-page h1 {
   font-size: 2rem;
-  color: #FFD166;
+  color: #ffd166;
   margin-bottom: 10px;
 }
 
 .role-page h2 {
-  color: #3A86FF;
+  color: #3a86ff;
   margin-top: 20px;
 }
 

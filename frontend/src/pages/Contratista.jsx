@@ -4,7 +4,7 @@ import "./Roles.css";
 
 export default function Contratista() {
   return (
-    <motion.div 
+    <motion.div
       className="role-page"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -14,12 +14,12 @@ export default function Contratista() {
         <img src="/contratista.jpeg" alt="Contratista" className="role-img" />
         <div>
           <h1>💼 Contratistas</h1>
-        <p>
-          Los contratistas pueden encontrar artistas fácilmente para sus
-          proyectos, ya sea en pequeños eventos privados o en grandes
-          festivales. VibeSphere garantiza que encuentres el talento adecuado
-          para cada ocasión.
-        </p>
+          <p>
+            Los contratistas pueden encontrar artistas fácilmente para sus
+            proyectos, ya sea en pequeños eventos privados o en grandes
+            festivales. VibeSphere garantiza que encuentres el talento adecuado
+            para cada ocasión.
+          </p>
         </div>
       </div>
 
@@ -33,8 +33,8 @@ export default function Contratista() {
 
       <h2>Alcance</h2>
       <p>
-        Tendrás a tu disposición un ecosistema digital para planear eventos únicos 
-        y garantizar experiencias inolvidables para tu público.
+        Tendrás a tu disposición un ecosistema digital para planear eventos
+        únicos y garantizar experiencias inolvidables para tu público.
       </p>
     </motion.div>
   );

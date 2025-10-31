@@ -3,10 +3,11 @@ const router = express.Router();
 const path = require("path");
 const multer = require("multer");
 
-
-
 // ✅ Controlador
-const { obtenerArtista, actualizarArtista } = require("../controllers/artistaController");
+const {
+  obtenerArtista,
+  actualizarArtista,
+} = require("../controllers/artistaController");
 
 // =====================================
 // 1️⃣ Configuración de Multer (subida de fotos)

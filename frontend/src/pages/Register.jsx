@@ -102,7 +102,9 @@ function Register() {
         return;
       }
 
-      alert("✅ Registro exitoso. Revisa tu correo para verificar tu cuenta antes de iniciar sesión.");
+      alert(
+        "✅ Registro exitoso. Revisa tu correo para verificar tu cuenta antes de iniciar sesión."
+      );
 
       setTimeout(() => {
         navigate("/login");
@@ -140,7 +142,10 @@ function Register() {
                 setForm({ ...form, nombre: value });
                 setErrors({ ...errors, nombre: "" });
               } else {
-                setErrors({ ...errors, nombre: "❌ Solo se permiten letras y espacios" });
+                setErrors({
+                  ...errors,
+                  nombre: "❌ Solo se permiten letras y espacios",
+                });
               }
             }}
             required
@@ -162,7 +167,10 @@ function Register() {
                 setForm({ ...form, apellidos: value });
                 setErrors({ ...errors, apellidos: "" });
               } else {
-                setErrors({ ...errors, apellidos: "❌ Solo se permiten letras y espacios" });
+                setErrors({
+                  ...errors,
+                  apellidos: "❌ Solo se permiten letras y espacios",
+                });
               }
             }}
             required
@@ -180,7 +188,9 @@ function Register() {
             onChange={handleChange}
             required
           />
-          {errors.fecha_nacimiento && <p className="error">{errors.fecha_nacimiento}</p>}
+          {errors.fecha_nacimiento && (
+            <p className="error">{errors.fecha_nacimiento}</p>
+          )}
 
           {/* Correo */}
           <label htmlFor="correo">Correo</label>
@@ -209,13 +219,18 @@ function Register() {
               if (/\s/.test(value)) {
                 setErrors((prev) => ({
                   ...prev,
-                  nombre_usuario: "❌ No se permiten espacios en el nombre de usuario",
+                  nombre_usuario:
+                    "❌ No se permiten espacios en el nombre de usuario",
                 }));
               } else if (value.length > 30) {
-                const res = await checkUsuarioOCorreo({ nombre_usuario: value });
+                const res = await checkUsuarioOCorreo({
+                  nombre_usuario: value,
+                });
                 setErrors((prev) => ({
                   ...prev,
-                  nombre_usuario: res.exists ? "❌ Este nombre de usuario ya está en uso" : "",
+                  nombre_usuario: res.exists
+                    ? "❌ Este nombre de usuario ya está en uso"
+                    : "",
                 }));
               } else {
                 setErrors((prev) => ({ ...prev, nombre_usuario: "" }));
@@ -224,7 +239,9 @@ function Register() {
             }}
             required
           />
-          {errors.nombre_usuario && <p className="error">{errors.nombre_usuario}</p>}
+          {errors.nombre_usuario && (
+            <p className="error">{errors.nombre_usuario}</p>
+          )}
 
           {/* Contraseña */}
           <label htmlFor="password">Contraseña</label>
@@ -240,11 +257,20 @@ function Register() {
                 setForm({ ...form, password: value });
 
                 if (!/(?=.*[a-z])/.test(value)) {
-                  setErrors((prev) => ({ ...prev, password: "❌ Debe tener al menos una minúscula" }));
+                  setErrors((prev) => ({
+                    ...prev,
+                    password: "❌ Debe tener al menos una minúscula",
+                  }));
                 } else if (!/(?=.*[A-Z])/.test(value)) {
-                  setErrors((prev) => ({ ...prev, password: "❌ Debe tener al menos una mayúscula" }));
+                  setErrors((prev) => ({
+                    ...prev,
+                    password: "❌ Debe tener al menos una mayúscula",
+                  }));
                 } else if (value.length < 8) {
-                  setErrors((prev) => ({ ...prev, password: "❌ Debe tener mínimo 8 caracteres" }));
+                  setErrors((prev) => ({
+                    ...prev,
+                    password: "❌ Debe tener mínimo 8 caracteres",
+                  }));
                 } else {
                   setErrors((prev) => ({ ...prev, password: "" }));
                 }
@@ -263,7 +289,13 @@ function Register() {
 
           {/* Rol */}
           <label htmlFor="rol_id">Rol</label>
-          <select name="rol_id" id="rol_id" value={form.rol_id} onChange={handleChange} required>
+          <select
+            name="rol_id"
+            id="rol_id"
+            value={form.rol_id}
+            onChange={handleChange}
+            required
+          >
             <option value="">Selecciona tu rol</option>
             <option value="1">Artista</option>
             <option value="2">Contratista</option>
@@ -297,7 +329,9 @@ function Register() {
                   accept=".png, .jpg, .jpeg"
                   onChange={handleFileChange}
                 />
-                {form.foto_perfil && <p className="file-name">{form.foto_perfil.name}</p>}
+                {form.foto_perfil && (
+                  <p className="file-name">{form.foto_perfil.name}</p>
+                )}
               </div>
             </>
           )}
@@ -326,14 +360,18 @@ function Register() {
                 id="descripcion"
                 placeholder="Describe brevemente tu empresa (opcional)"
                 value={form.descripcion || ""}
-                onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
+                onChange={(e) =>
+                  setForm({ ...form, descripcion: e.target.value })
+                }
                 maxLength={300}
                 className="styled-textarea"
               />
               <p>{form.descripcion?.length || 0}/300 caracteres</p>
 
               <div className="file-upload">
-                <label htmlFor="foto_perfil">Subir logo o foto de la empresa</label>
+                <label htmlFor="foto_perfil">
+                  Subir logo o foto de la empresa
+                </label>
                 <input
                   type="file"
                   id="foto_perfil"
@@ -341,7 +379,9 @@ function Register() {
                   accept=".png, .jpg, .jpeg"
                   onChange={handleFileChange}
                 />
-                {form.foto_perfil && <p className="file-name">{form.foto_perfil.name}</p>}
+                {form.foto_perfil && (
+                  <p className="file-name">{form.foto_perfil.name}</p>
+                )}
               </div>
             </>
           )}
@@ -362,4 +402,3 @@ function Register() {
 }
 
 export default Register;
-

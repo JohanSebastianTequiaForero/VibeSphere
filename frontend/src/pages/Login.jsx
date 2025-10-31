@@ -28,54 +28,55 @@ function Login() {
   };
 
   // Enviar formulario al backend usando el servicio
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (!form.email || !form.password) {
-    setError("⚠️ Todos los campos son obligatorios");
-    return;
-  }
-
-  try {
-    const res = await login(form.email, form.password);
-
-    if (!res.success) {
-      setError(res.message || "❌ Error en el inicio de sesión");
+    if (!form.email || !form.password) {
+      setError("⚠️ Todos los campos son obligatorios");
       return;
     }
 
-    let usuarioData = res.data;
+    try {
+      const res = await login(form.email, form.password);
 
-    // 🔹 Si el usuario es artista (rol 1), obtener su info extra
-    if (usuarioData.rol === 1) {
-      try {
-        const artistaRes = await fetch(`http://localhost:5000/api/artistas/${usuarioData.id}`);
-        const artistaData = await artistaRes.json();
-
-        if (artistaData.success && artistaData.data) {
-          usuarioData = {
-            ...usuarioData,
-            foto_perfil: artistaData.data.foto_perfil,
-            competencias: artistaData.data.competencias,
-          };
-        }
-      } catch (error) {
-        console.error("Error al obtener datos del artista:", error);
+      if (!res.success) {
+        setError(res.message || "❌ Error en el inicio de sesión");
+        return;
       }
+
+      let usuarioData = res.data;
+
+      // 🔹 Si el usuario es artista (rol 1), obtener su info extra
+      if (usuarioData.rol === 1) {
+        try {
+          const artistaRes = await fetch(
+            `http://localhost:5000/api/artistas/${usuarioData.id}`
+          );
+          const artistaData = await artistaRes.json();
+
+          if (artistaData.success && artistaData.data) {
+            usuarioData = {
+              ...usuarioData,
+              foto_perfil: artistaData.data.foto_perfil,
+              competencias: artistaData.data.competencias,
+            };
+          }
+        } catch (error) {
+          console.error("Error al obtener datos del artista:", error);
+        }
+      }
+
+      // ✅ Guardar usuario en contexto y en localStorage
+      loginUser(usuarioData);
+      localStorage.setItem("usuario", JSON.stringify(usuarioData));
+
+      setError("");
+      navigate("/explorer"); // Redirige tras login
+    } catch (err) {
+      console.error(err);
+      setError("🚨 Error en el servidor, intenta más tarde");
     }
-
-    // ✅ Guardar usuario en contexto y en localStorage
-    loginUser(usuarioData);
-    localStorage.setItem("usuario", JSON.stringify(usuarioData));
-
-    setError("");
-    navigate("/explorer"); // Redirige tras login
-
-  } catch (err) {
-    console.error(err);
-    setError("🚨 Error en el servidor, intenta más tarde");
-  }
-};
+  };
 
   return (
     <motion.div
@@ -106,7 +107,7 @@ const handleSubmit = async (e) => {
             onChange={handleChange}
             required
           />
-          
+
           <label htmlFor="password">Contraseña</label>
           <div className="password-field">
             <input
@@ -125,7 +126,6 @@ const handleSubmit = async (e) => {
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </div>
-          
 
           <a href="#" className="forgot-link">
             ¿Olvidaste tu contraseña?
@@ -159,5 +159,3 @@ const handleSubmit = async (e) => {
 }
 
 export default Login;
-
-

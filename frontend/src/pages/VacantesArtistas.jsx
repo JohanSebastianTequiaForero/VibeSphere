@@ -21,31 +21,40 @@ export default function VacantesArtistas() {
         if (Array.isArray(data) && data.length > 0) {
           setVacantes(data);
         } else {
-          console.warn("⚠️ No hay vacantes en el backend. Usando datos locales...");
+          console.warn(
+            "⚠️ No hay vacantes en el backend. Usando datos locales..."
+          );
           setVacantes([
             {
               id: 1,
               titulo: "🎤 Vocalista para evento en vivo",
-              descripcion: "Buscamos cantante con repertorio pop y energía en tarima.",
-              imagen: "https://images.unsplash.com/photo-1525186402429-b4ff38bedbec?w=800",
+              descripcion:
+                "Buscamos cantante con repertorio pop y energía en tarima.",
+              imagen:
+                "https://images.unsplash.com/photo-1525186402429-b4ff38bedbec?w=800",
             },
             {
               id: 2,
               titulo: "🎸 Guitarrista para estudio",
-              descripcion: "Grabación de temas acústicos con sesión de ensayo previa.",
-              imagen: "https://images.unsplash.com/photo-1511376777868-611b54f68947?w=800",
+              descripcion:
+                "Grabación de temas acústicos con sesión de ensayo previa.",
+              imagen:
+                "https://images.unsplash.com/photo-1511376777868-611b54f68947?w=800",
             },
             {
               id: 3,
               titulo: "🥁 Baterista para tour nacional",
               descripcion: "Se requiere disponibilidad para giras de 2 meses.",
-              imagen: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800",
+              imagen:
+                "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800",
             },
             {
               id: 4,
               titulo: "🎧 DJ para evento privado",
-              descripcion: "Evento nocturno, se requiere experiencia y repertorio variado.",
-              imagen: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800",
+              descripcion:
+                "Evento nocturno, se requiere experiencia y repertorio variado.",
+              imagen:
+                "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800",
             },
           ]);
         }
@@ -115,7 +124,10 @@ export default function VacantesArtistas() {
                 {postuladas.includes(v.id) ? (
                   <button className="btn-disabled">✅ Ya te postulaste</button>
                 ) : (
-                  <button className="btn-postular" onClick={() => handlePostular(v)}>
+                  <button
+                    className="btn-postular"
+                    onClick={() => handlePostular(v)}
+                  >
                     🎯 Postularme
                   </button>
                 )}

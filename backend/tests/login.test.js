@@ -8,7 +8,14 @@ describe("Pruebas del Login", () => {
     await db.query("DELETE FROM usuarios WHERE correo = 'test@example.com'");
     await db.query(
       "INSERT INTO usuarios (nombre, apellidos, correo, nombre_usuario, password, rol_id, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())",
-      ["Test", "User", "test@example.com", "testuser", "$2b$10$abcdefghijklmnopqrstuv", 1]
+      [
+        "Test",
+        "User",
+        "test@example.com",
+        "testuser",
+        "$2b$10$abcdefghijklmnopqrstuv",
+        1,
+      ]
     );
     // Ojo: ese password debe estar encriptado con bcrypt
   });

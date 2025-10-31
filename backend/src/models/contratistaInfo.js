@@ -22,7 +22,12 @@ const ContratistaInfo = {
   },
 
   // ✅ Actualizar datos del contratista (foto o descripción o categoría)
-  async actualizarContratista(usuario_id, categoria_id, descripcion, foto_perfil) {
+  async actualizarContratista(
+    usuario_id,
+    categoria_id,
+    descripcion,
+    foto_perfil
+  ) {
     const [result] = await db.query(
       `UPDATE contratista_info
        SET 

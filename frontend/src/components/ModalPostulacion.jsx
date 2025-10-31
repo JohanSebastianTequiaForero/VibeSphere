@@ -2,7 +2,13 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./ModalPostulacion.css";
 
-export default function ModalPostulacion({ show, vacante, onClose, onConfirm, tipo }) {
+export default function ModalPostulacion({
+  show,
+  vacante,
+  onClose,
+  onConfirm,
+  tipo,
+}) {
   if (!show) return null;
 
   const mensaje =
@@ -11,7 +17,9 @@ export default function ModalPostulacion({ show, vacante, onClose, onConfirm, ti
       : `¿Seguro deseas eliminar la vacante "${vacante?.titulo}"?`;
 
   const titulo =
-    tipo === "postular" ? "🎶 Confirmar Postulación" : "🗑️ Confirmar Eliminación";
+    tipo === "postular"
+      ? "🎶 Confirmar Postulación"
+      : "🗑️ Confirmar Eliminación";
 
   const textoBoton = tipo === "postular" ? "Sí, postularme" : "Sí, eliminar";
 

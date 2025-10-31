@@ -10,8 +10,8 @@ export default function Home() {
     userRole === "Artista"
       ? "role-artista"
       : userRole === "Contratista"
-      ? "role-contratista"
-      : "role-invitado";
+        ? "role-contratista"
+        : "role-invitado";
 
   return (
     <motion.div

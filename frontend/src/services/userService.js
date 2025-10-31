@@ -21,7 +21,9 @@ export async function createUsuario(usuario) {
   // 🔑 Estandarizamos la respuesta
   return {
     success: res.ok,
-    message: data.message || (res.ok ? "✅ Usuario creado" : "❌ Error al registrar usuario"),
+    message:
+      data.message ||
+      (res.ok ? "✅ Usuario creado" : "❌ Error al registrar usuario"),
     data: data.data || null,
   };
 }

@@ -35,8 +35,12 @@ export default function VacanteCard({ vacante }) {
       </p>
 
       <div className="text-sm text-violet-200 mb-3">
-        <p><strong>Disponibilidad:</strong> {vacante.disponibilidad}</p>
-        <p><strong>Contacto:</strong> {vacante.contacto}</p>
+        <p>
+          <strong>Disponibilidad:</strong> {vacante.disponibilidad}
+        </p>
+        <p>
+          <strong>Contacto:</strong> {vacante.contacto}
+        </p>
       </div>
 
       <button className="bg-violet-500 hover:bg-violet-600 text-white py-2 px-4 rounded-xl font-semibold transition">

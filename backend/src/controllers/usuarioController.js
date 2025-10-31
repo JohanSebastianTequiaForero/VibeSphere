@@ -1,5 +1,5 @@
 // backend/src/controllers/usuarioController.js
-const Usuario = require('../models/usuario');
+const Usuario = require("../models/usuario");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const db = require("../config/db");
@@ -27,13 +27,13 @@ const getUsuarios = async (req, res) => {
     res.json({
       success: true,
       message: "Usuarios obtenidos con éxito",
-      data: usuarios
+      data: usuarios,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       message: "Error al obtener usuarios",
-      error: error.message
+      error: error.message,
     });
   }
 };
@@ -48,14 +48,14 @@ const createUsuario = async (req, res) => {
     if (!fecha_nacimiento) {
       return res.status(400).json({
         success: false,
-        message: 'La fecha de nacimiento es obligatoria'
+        message: "La fecha de nacimiento es obligatoria",
       });
     }
 
     if (!esMayorDeEdad(fecha_nacimiento)) {
       return res.status(400).json({
         success: false,
-        message: 'Debes ser mayor de edad para registrarte'
+        message: "Debes ser mayor de edad para registrarte",
       });
     }
 
@@ -67,7 +67,8 @@ const createUsuario = async (req, res) => {
     };
 
     if (payload.rol_id) payload.rol_id = Number(payload.rol_id);
-    if (payload.categoria_id) payload.categoria_id = Number(payload.categoria_id);
+    if (payload.categoria_id)
+      payload.categoria_id = Number(payload.categoria_id);
     if (payload.rol_id === 2) {
       payload.descripcion = req.body.descripcion || null;
     }
@@ -102,15 +103,15 @@ const createUsuario = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: 'Usuario creado. Revisa tu correo para verificar la cuenta.',
-      data: { id: usuarioId }
+      message: "Usuario creado. Revisa tu correo para verificar la cuenta.",
+      data: { id: usuarioId },
     });
   } catch (error) {
-    console.error('Error en createUsuario:', error);
+    console.error("Error en createUsuario:", error);
     res.status(500).json({
       success: false,
       message: "Error al crear usuario",
-      error: error.message
+      error: error.message,
     });
   }
 };
@@ -131,7 +132,9 @@ const verifyUsuario = async (req, res) => {
 
     res.json({ success: true, message: "Cuenta verificada con éxito" });
   } catch (error) {
-    res.status(400).json({ success: false, message: "Token inválido o expirado" });
+    res
+      .status(400)
+      .json({ success: false, message: "Token inválido o expirado" });
   }
 };
 

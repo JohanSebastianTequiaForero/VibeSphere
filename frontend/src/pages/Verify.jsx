@@ -11,16 +11,23 @@ function Verify() {
   useEffect(() => {
     const verifyAccount = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/usuarios/verify/${token}`);
+        const res = await fetch(
+          `http://localhost:5000/api/usuarios/verify/${token}`
+        );
         const data = await res.json();
 
         if (res.ok && data.success) {
           setStatus("success");
-          setMessage("✅ Tu cuenta ha sido verificada con éxito. Ya puedes iniciar sesión.");
+          setMessage(
+            "✅ Tu cuenta ha sido verificada con éxito. Ya puedes iniciar sesión."
+          );
           setTimeout(() => navigate("/login"), 3000); // Redirige a login en 3s
         } else {
           setStatus("error");
-          setMessage(data.message || "❌ El enlace de verificación no es válido o ha expirado.");
+          setMessage(
+            data.message ||
+              "❌ El enlace de verificación no es válido o ha expirado."
+          );
         }
       } catch (error) {
         console.error("❌ Error verificando:", error);

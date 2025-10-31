@@ -1,6 +1,11 @@
 // src/App.jsx
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext"; // ✅ Importar el Provider
 import ProtectedRoute from "./routes/ProtectedRoute"; // ✅ Importar la protección
@@ -33,10 +38,9 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/verify/:token" element={<Verify />} />
           <Route path="/Explorer" element={<Explorer />} />
-      
 
           {/* 🔒 Rutas protegidas */}
-          
+
           <Route
             path="/VacantesArtistas"
             element={

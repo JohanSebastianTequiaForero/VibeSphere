@@ -15,7 +15,9 @@ const getUsuarios = async () => {
 // Obtener usuario por correo (para login)
 // ==========================
 const getUsuarioByCorreo = async (correo) => {
-  const [rows] = await db.query("SELECT * FROM usuarios WHERE correo = ?", [correo]);
+  const [rows] = await db.query("SELECT * FROM usuarios WHERE correo = ?", [
+    correo,
+  ]);
   return rows[0]; // Retorna solo un usuario
 };
 
@@ -34,24 +36,31 @@ const createUsuario = async (usuario) => {
     competencias, // solo para artista
     foto_perfil,
     categoria_id, // contratista
-    descripcion   // opcional
+    descripcion, // opcional
   } = usuario;
 
   // 🔐 Encriptar contraseña antes de guardarla
   const hashedPassword = await bcrypt.hash(password, 10);
 
   // 1. Generar token de verificación (1h de validez)
-  const token = jwt.sign(
-    { correo },
-    process.env.JWT_SECRET || "secreto_dev",
-    { expiresIn: "1h" }
-  );
+  const token = jwt.sign({ correo }, process.env.JWT_SECRET || "secreto_dev", {
+    expiresIn: "1h",
+  });
 
   // 2. Insertar usuario en la tabla "usuarios" con token_verificacion y verificado=0
   const [result] = await db.query(
     `INSERT INTO usuarios (nombre, apellidos, correo, fecha_nacimiento, nombre_usuario, password, rol_id, created_at, verificado, token_verificacion)
      VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), 0, ?)`,
-    [nombre, apellidos, correo, fecha_nacimiento, nombre_usuario, hashedPassword, rol_id, token]
+    [
+      nombre,
+      apellidos,
+      correo,
+      fecha_nacimiento,
+      nombre_usuario,
+      hashedPassword,
+      rol_id,
+      token,
+    ]
   );
 
   const usuarioId = result.insertId; // ID del nuevo usuario
@@ -71,12 +80,7 @@ const createUsuario = async (usuario) => {
     await db.query(
       `INSERT INTO contratista_info (usuario_id, categoria_id, descripcion, foto_perfil)
        VALUES (?, ?, ?, ?)`,
-      [
-        usuarioId,
-        categoria_id,
-        descripcion || null,
-        foto_perfil || null,
-      ]
+      [usuarioId, categoria_id, descripcion || null, foto_perfil || null]
     );
   }
 

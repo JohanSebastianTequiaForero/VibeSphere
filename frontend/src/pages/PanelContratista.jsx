@@ -4,8 +4,18 @@ import "./PanelContratista.css";
 const PanelContratista = () => {
   const [activeTab, setActiveTab] = useState("vacantes");
   const [postulados, setPostulados] = useState([
-    { id: 1, nombre: "Luna Pérez", vacante: "Festival Sonidos del Alma", estado: "Pendiente" },
-    { id: 2, nombre: "Diego Torres", vacante: "Disquera MusicFlow", estado: "Pendiente" },
+    {
+      id: 1,
+      nombre: "Luna Pérez",
+      vacante: "Festival Sonidos del Alma",
+      estado: "Pendiente",
+    },
+    {
+      id: 2,
+      nombre: "Diego Torres",
+      vacante: "Disquera MusicFlow",
+      estado: "Pendiente",
+    },
   ]);
   const [contratos, setContratos] = useState([]);
 
@@ -32,16 +42,28 @@ const PanelContratista = () => {
 
       {/* Navegación entre pestañas */}
       <nav className="tabs">
-        <button onClick={() => setActiveTab("vacantes")} className={activeTab === "vacantes" ? "active" : ""}>
+        <button
+          onClick={() => setActiveTab("vacantes")}
+          className={activeTab === "vacantes" ? "active" : ""}
+        >
           Vacantes creadas
         </button>
-        <button onClick={() => setActiveTab("postulados")} className={activeTab === "postulados" ? "active" : ""}>
+        <button
+          onClick={() => setActiveTab("postulados")}
+          className={activeTab === "postulados" ? "active" : ""}
+        >
           Lista de postulados
         </button>
-        <button onClick={() => setActiveTab("contratacion")} className={activeTab === "contratacion" ? "active" : ""}>
+        <button
+          onClick={() => setActiveTab("contratacion")}
+          className={activeTab === "contratacion" ? "active" : ""}
+        >
           Confirmación de contratación
         </button>
-        <button onClick={() => setActiveTab("contratos")} className={activeTab === "contratos" ? "active" : ""}>
+        <button
+          onClick={() => setActiveTab("contratos")}
+          className={activeTab === "contratos" ? "active" : ""}
+        >
           Registro de contratos
         </button>
       </nav>
@@ -92,7 +114,10 @@ const PanelContratista = () => {
                 <div key={p.id} className="contratar-card">
                   <h3>{p.nombre}</h3>
                   <p>Vacante: {p.vacante}</p>
-                  <button className="btn-contratar" onClick={() => handleContratar(p)}>
+                  <button
+                    className="btn-contratar"
+                    onClick={() => handleContratar(p)}
+                  >
                     Confirmar Contratación
                   </button>
                 </div>

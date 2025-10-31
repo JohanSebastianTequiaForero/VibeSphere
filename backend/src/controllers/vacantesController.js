@@ -24,7 +24,8 @@ export const postularVacante = (req, res) => {
     const vacantes = JSON.parse(data);
 
     const vacante = vacantes.find((v) => v.id === parseInt(id));
-    if (!vacante) return res.status(404).json({ error: "Vacante no encontrada" });
+    if (!vacante)
+      return res.status(404).json({ error: "Vacante no encontrada" });
 
     // Evitar postulación repetida
     if (!vacante.postulados.includes(usuario)) {

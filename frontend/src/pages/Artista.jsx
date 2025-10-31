@@ -4,7 +4,7 @@ import "./Roles.css";
 
 export default function Artista() {
   return (
-    <motion.div 
+    <motion.div
       className="role-page"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -13,12 +13,12 @@ export default function Artista() {
       <div className="role-header">
         <img src="/artista.jpeg" alt="Artista" className="role-img" />
         <div>
-           <h1>🎤 Artistas</h1>
-        <p>
-            Los artistas en VibeSphere tienen un espacio donde mostrar su talento,
-            promocionar sus eventos, compartir su música y conectar con contratistas
-            que buscan propuestas innovadoras.
-        </p>
+          <h1>🎤 Artistas</h1>
+          <p>
+            Los artistas en VibeSphere tienen un espacio donde mostrar su
+            talento, promocionar sus eventos, compartir su música y conectar con
+            contratistas que buscan propuestas innovadoras.
+          </p>
         </div>
       </div>
 
@@ -32,8 +32,8 @@ export default function Artista() {
 
       <h2>Alcance</h2>
       <p>
-        Tu música llegará a contratistas, productores y organizadores de eventos que 
-        buscan artistas auténticos para enriquecer sus experiencias.
+        Tu música llegará a contratistas, productores y organizadores de eventos
+        que buscan artistas auténticos para enriquecer sus experiencias.
       </p>
     </motion.div>
   );
