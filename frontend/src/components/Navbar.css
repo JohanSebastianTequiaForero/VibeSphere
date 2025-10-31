@@ -93,13 +93,23 @@
 }
 
 .user-info {
-  margin: 0 0 10px;
-  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
 }
 
-.user-info small {
-  color: #ccc;
-  font-size: 0.8rem;
+.foto-perfil {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.foto-placeholder {
+  font-size: 30px;
+  color: white;
 }
 
 .logout-btn {

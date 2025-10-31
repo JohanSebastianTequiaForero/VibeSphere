@@ -1,77 +1,52 @@
-// src/pages/Explorer.jsx
-import { motion } from "framer-motion";
 import "./Explorer.css";
+import { motion } from "framer-motion";
 
 export default function Explorer() {
-  const userRole = localStorage.getItem("userRole") || "Invitado";
-
-  // Determina la clase según el rol
-  const roleClass =
-    userRole === "Artista"
-      ? "role-artista"
-      : userRole === "Contratista"
-      ? "role-contratista"
-      : userRole === "Espectador"
-      ? "role-espectador"
-      : "role-invitado";
-
   return (
     <motion.div
-      className={`explorer-page ${roleClass}`}
+      className="home-page"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      <motion.header
-        className="explorer-header"
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <h1>🌐 Explorer — VibeSphere</h1>
-        <p>Conoce qué hacemos, nuestro alcance y beneficios</p>
-      </motion.header>
+      {/* 🔹 Encabezado principal */}
+      <header className="home-header">
+        <h1>🏠 Bienvenido a <span>VibeSphere</span></h1>
+        <p>
+          Aquí comienza tu experiencia musical. Explora artistas, descubre contratistas
+          y encuentra oportunidades para crecer en la industria.
+        </p>
+      </header>
 
-      {/* 🔹 Card 1 */}
-      <div className="explorer-card">
-        <img src="/vibesphere1.jpeg" alt="Conexión musical" />
-        <div className="card-content">
-          <h2>¿Qué es VibeSphere?</h2>
+      {/* 🔹 Tarjetas de roles */}
+      <div className="roles-container">
+        <motion.div
+          className="role-card"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 200 }}
+        >
+          <h2>🎤 Soy Artista</h2>
           <p>
-            VibeSphere es una plataforma digital que conecta artistas con
-            contratistas. Nuestro propósito es impulsar el talento musical y
-            brindar a los organizadores de eventos una manera sencilla y
-            confiable de encontrar artistas para sus proyectos.
+            Comparte tu talento, muestra tu música y conecta con contratistas que buscan
+            dar vida a sus eventos. Participa en competencias, recibe retroalimentación
+            y promueve tu carrera con herramientas digitales.
           </p>
-        </div>
-      </div>
+          <button>Descubre más</button>
+        </motion.div>
 
-      {/* 🔹 Card 2 */}
-      <div className="explorer-card reverse">
-        <img src="/vibesphere2.jpeg" alt="Alcance global" />
-        <div className="card-content">
-          <h2>🌍 Alcance</h2>
+        <motion.div
+          className="role-card"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 200 }}
+        >
+          <h2>📅 Soy Contratista</h2>
           <p>
-            La plataforma está diseñada para que tanto artistas emergentes como
-            reconocidos puedan tener visibilidad. Desde pequeños eventos locales
-            hasta grandes festivales, VibeSphere busca ser el puente que une la
-            creatividad con la oportunidad.
+            Encuentra artistas de calidad, organiza eventos únicos y construye experiencias
+            memorables. Accede a perfiles verificados, escucha demos y contrata de forma segura
+            dentro del ecosistema VibeSphere.
           </p>
-        </div>
-      </div>
-
-      {/* 🔹 Card 3 */}
-      <div className="explorer-card">
-        <img src="/vibesphere3.jpeg" alt="Beneficios" />
-        <div className="card-content">
-          <h2>✨ Beneficios</h2>
-          <ul>
-            <li>Impulso a artistas para darse a conocer.</li>
-            <li>Facilidad para contratistas al buscar talentos.</li>
-            <li>Creación de experiencias musicales únicas.</li>
-            <li>Un ecosistema seguro y confiable para la contratación.</li>
-          </ul>
-        </div>
+          <button>Descubre más</button>
+        </motion.div>
       </div>
     </motion.div>
   );

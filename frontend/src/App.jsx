@@ -1,6 +1,6 @@
 // src/App.jsx
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext"; // ✅ Importar el Provider
 import ProtectedRoute from "./routes/ProtectedRoute"; // ✅ Importar la protección
@@ -25,22 +25,18 @@ function App() {
         <Navbar />
 
         <Routes>
+          {/* 🚀 Redirección automática al Home (o Explorer si prefieres) */}
+          <Route path="/" element={<Navigate to="/home" replace />} />
           {/* 🔓 Rutas públicas */}
           <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify/:token" element={<Verify />} />
           <Route path="/Explorer" element={<Explorer />} />
       
 
           {/* 🔒 Rutas protegidas */}
-          <Route
-            path="/Home"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
+          
           <Route
             path="/VacantesArtistas"
             element={

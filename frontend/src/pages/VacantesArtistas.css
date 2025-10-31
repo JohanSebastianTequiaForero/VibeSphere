@@ -1,280 +1,90 @@
-.vacantes-container {
-  text-align: center;
-  background: linear-gradient(180deg, #2e0a78, #5f2bc9);
-  min-height: 100vh;
-  padding: 2rem;
-  color: white;
-}
-
-.titulo {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.descripcion {
-  color: #ddd;
-  margin-bottom: 2rem;
-}
-
-/* 🔹 Mensaje de éxito */
-.mensaje-exito {
-  background: #00d084;
-  color: #fff;
-  font-weight: bold;
-  padding: 0.8rem 1.2rem;
-  border-radius: 0.6rem;
-  margin-bottom: 1.5rem;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-  animation: aparecer 0.5s ease-in-out;
-}
-
-@keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.vacantes-lista {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
-.vacante-card {
-  background: #4b18b8;
-  border-radius: 1rem;
-  width: 280px;
-  padding: 1rem;
-  color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s;
-}
-
-.vacante-card:hover {
-  transform: scale(1.03);
-}
-
-/* 🔹 Imagen más pequeña */
-.vacante-img {
-  width: 100%;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 0.8rem;
-  margin-bottom: 0.8rem;
-}
-
-.categoria {
-  display: inline-block;
-  background: #7f44ff;
-  padding: 0.2rem 0.6rem;
-  border-radius: 0.5rem;
-  font-size: 0.8rem;
-  color: #fff;
-  margin-bottom: 0.5rem;
-}
-
-.ver-mas-btn {
-  margin-top: 0.5rem;
-  background: #ffffff;
-  color: #4b18b8;
-  font-weight: bold;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.4rem 1rem;
-  cursor: pointer;
-}
-
-.ver-mas-btn:hover {
-  background: #ffdf7e;
-}
-
-/* 🔹 Modal */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(10, 0, 50, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-card {
-  background: white;
-  color: #333;
-  padding: 2rem;
-  border-radius: 1rem;
-  width: 400px;
-  text-align: left;
-}
-
-.modal-card img {
-  width: 100%;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.aplicar-btn {
-  background: #5a00ff;
-  color: white;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  margin-right: 0.5rem;
-}
-
-.aplicar-btn:hover {
-  background: #7c2fff;
-}
-
-.cerrar-btn {
-  background: #aaa;
-  color: white;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-}
-
-/* 🔹 Vacantes aplicadas */
-.vacantes-aplicadas {
-  margin-top: 3rem;
-  background: #3a0ca3;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.aplicada-card {
-  background: #5f2bc9;
-  margin: 1rem auto;
-  padding: 0.8rem;
-  border-radius: 0.8rem;
-  width: 80%;
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  justify-content: flex-start;
-}
-
-/* 🔹 Logo VibeSphere */
-.logo-vibesphere {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.aplicada-info {
-  text-align: left;
-}
-.aplicada-info h4 {
-  margin: 0;
-  font-size: 1.1rem;
-}
-.aplicada-info p {
-  margin: 0.2rem 0 0 0;
-  font-size: 0.9rem;
-}
-.cerrar-btn:hover {
-  background: #888;
-}
-.logo-vibesphere {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-/* 🎶 VibeSphere - Vacantes para Artistas */
 .vacantes-artistas-container {
-  background: linear-gradient(180deg, #6a00f6, #3a0ca3);
   min-height: 100vh;
-  padding: 3rem 2rem;
+  background: radial-gradient(circle at top, #2b1055, #120230);
   color: white;
   text-align: center;
-}
-
-.titulo-vacantes {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.vacantes-grid {
+  padding: 3rem 1rem;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
+  flex-direction: column;
+  align-items: center;
 }
 
-.vacante-card {
-  background: rgba(255, 255, 255, 0.1);
+.vacantes-artistas-container h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #e4d9ff;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+}
+
+.carousel {
+  width: 90%;
+  max-width: 600px;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-item {
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 1.5rem;
-  padding: 1.5rem;
-  width: 280px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 2rem;
+  box-shadow: 0 0 25px rgba(90, 0, 200, 0.3);
+  backdrop-filter: blur(8px);
+  transition: all 0.4s ease;
 }
 
-.vacante-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-}
-
-.vacante-imagen {
+.carousel-item img {
   width: 100%;
-  height: 150px;
+  height: 280px;
   object-fit: cover;
   border-radius: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 }
 
-.vacante-empresa {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #d0a8ff;
-  margin-bottom: 0.5rem;
+.carousel-item h2 {
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 0.6rem;
 }
 
-.vacante-descripcion {
-  font-size: 0.9rem;
-  color: #f3eaff;
-  margin-bottom: 1rem;
-  line-height: 1.4;
+.carousel-item p {
+  color: #dcdcdc;
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
 }
 
-.boton-ver {
-  background: white;
-  color: #6a00f6;
+button {
   border: none;
-  border-radius: 1rem;
-  padding: 0.6rem 1.2rem;
+  padding: 0.8rem 1.8rem;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #7a00ff, #b600ff);
+  color: white;
   cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s ease, transform 0.2s ease;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
-.boton-ver:hover {
-  background: #d0a8ff;
-  color: #3a0ca3;
+button:hover {
+  background: linear-gradient(90deg, #b600ff, #ff00b3);
   transform: scale(1.05);
 }
-.boton-ver:active {
-  transform: scale(0.95);
+
+.btn-disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
+.sin-vacantes {
+  color: #ccc;
+  font-style: italic;
+  margin-top: 2rem;
+}
+@media (max-width: 400px) {
+  .vacantes-artistas-container h1 {
+    font-size: 2rem;
+  }
+
+  .carousel-item img {
+    height: 150px;
+  }
 }

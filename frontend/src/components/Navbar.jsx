@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import "./Navbar.css";
 
 const Navbar = () => {
+  
   const [isExpanded, setIsExpanded] = useState(false);
   const { usuario, logout } = useAuth();
   const navigate = useNavigate();
@@ -129,11 +130,22 @@ const Navbar = () => {
         {usuario ? (
           <>
             {isExpanded && (
-              <p className="user-info">
-                👤 {nombreUsuarioMostrar}
-                <br />
-                <small>({nombreRol})</small>
-              </p>
+              <div className="user-info">
+                {usuario?.foto_perfil ? (
+                  <img
+                  src={`http://localhost:5000/uploads/${usuario.foto_perfil}`}
+                  alt="Foto de perfil"
+                  className="foto-perfil"
+                  />
+                ) : (
+                  <span className="foto-placeholder">👤</span>
+                )}
+
+                <div>
+                  <p>{nombreUsuarioMostrar}</p>
+                  <small>({nombreRol})</small>
+                </div>
+              </div>
             )}
             <button onClick={handleLogout} className="logout-btn">
               🚪 {isExpanded ? "Cerrar sesión" : ""}
@@ -142,11 +154,9 @@ const Navbar = () => {
         ) : (
           <>
             {isExpanded && (
-              <p className="user-info">
+              <h3 className="user-info">
                 👋 ¡Bienvenido!
-                <br />
-                <small>Inicia sesión para explorar</small>
-              </p>
+              </h3>
             )}
             <button onClick={handleLogin} className="login-btn">
               🔐 {isExpanded ? "Iniciar sesión" : ""}

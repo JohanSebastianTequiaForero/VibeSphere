@@ -211,7 +211,7 @@ function Register() {
                   ...prev,
                   nombre_usuario: "❌ No se permiten espacios en el nombre de usuario",
                 }));
-              } else if (value.length > 2) {
+              } else if (value.length > 30) {
                 const res = await checkUsuarioOCorreo({ nombre_usuario: value });
                 setErrors((prev) => ({
                   ...prev,

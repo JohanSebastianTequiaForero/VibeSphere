@@ -1,73 +1,101 @@
 /* src/pages/Home.css */
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, #0A1D37, #4B0082);
+/* 🔹 Espaciado para no tapar el navbar */
+.explorer-page {
+  max-width: 1200px;
+  margin-left: 270px; /* ✅ deja espacio para el sidebar */
+  padding: 40px;
   color: #fff;
-  min-height: 100vh;
+  line-height: 1.6;
+  transition: margin-left 0.3s ease;
 }
 
-.home-container {
-  max-width: 1200px;
+/* Si el sidebar se colapsa o es más pequeño, puedes usar esta clase */
+.sidebar-collapsed .explorer-page {
+  margin-left: 90px;
+}
+
+.explorer-page {
+  max-width: 1100px;
   margin: auto;
   padding: 40px;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Encabezado */
+.explorer-header {
   text-align: center;
+  margin-bottom: 50px;
 }
-
-.home-header {
-  margin-bottom: 40px;
-}
-
-.home-header h1 {
-  font-size: 2.5rem;
-  margin: 0;
+.explorer-header h1 {
+  font-size: 2.4rem;
   color: #FFD166;
 }
+.explorer-header p {
+  color: #ddd;
+  font-size: 1.1rem;
+}
 
-.roles-container {
+/* 🔹 Card base */
+.explorer-card {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-}
-
-.role-card {
-  background: #1c2f52;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(30, 30, 60, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  margin-bottom: 50px;
   padding: 25px;
+  gap: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.explorer-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+}
+
+/* 🔹 Imagen */
+.explorer-card img {
+  width: 320px;
+  height: 320px;
+  object-fit: cover;
   border-radius: 15px;
-  width: 300px;
-  text-align: left;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
-.role-card h2 {
+/* 🔹 Contenido */
+.card-content {
+  flex: 1;
+}
+.card-content h2 {
   color: #3A86FF;
+  margin-bottom: 10px;
+}
+.card-content p, 
+.card-content ul {
+  color: #eee;
+  line-height: 1.6;
+  font-size: 1rem;
 }
 
-.role-card p {
-  margin: 15px 0;
+/* 🔹 Versión invertida */
+.explorer-card.reverse {
+  flex-direction: row-reverse;
 }
 
-.role-link {
-  display: inline-block;
-  margin-top: 10px;
-  background: #FFD166;
-  padding: 10px 15px;
-  border-radius: 8px;
-  font-weight: bold;
-  color: #000;
-  text-decoration: none;
-  transition: background 0.3s;
-}
-
-.role-link:hover {
-  background: #ffb703;
-}
-footer {
-  margin-top: 50px;
-  padding: 20px;
-  background: #3A86FF;
-  border-radius: 12px;
-  text-align: center;
-  color: #fff;
+/* 🔹 Responsivo */
+@media (max-width: 768px) {
+  .explorer-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .explorer-card.reverse {
+    flex-direction: column;
+  }
+  .explorer-card img {
+    width: 250px;
+    height: 250px;
+  }
 }

@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ===============================
-// 3. Rutas
+// 3. Rutas principales
 // ===============================
 const usuarioRoutes = require("./src/routes/usuarioRoutes");
 app.use("/api/usuarios", usuarioRoutes);
@@ -27,14 +27,35 @@ app.use("/api/usuarios", usuarioRoutes);
 const loginRoutes = require("./src/routes/loginRoutes");
 app.use("/api/login", loginRoutes);
 
+const artistaRoutes = require("./src/routes/artistaRoutes");
+app.use("/api/artistas", artistaRoutes);
+
+const contratistaInfoRoutes = require("./src/routes/contratistaInfoRoutes");
+app.use("/api/contratistainfo",contratistaInfoRoutes);
+
 // ===============================
-// 4. Exportar app para pruebas
+// 4. Nuevas rutas: Vacantes y Postulaciones
+// ===============================
+const vacantesRoutes = require("./src/routes/vacantesRoutes");
+const postulacionesRoutes = require("./src/routes/postulacionesRoutes");
+
+app.use("/api/vacantes", vacantesRoutes);
+app.use("/api/postulaciones", postulacionesRoutes);
+
+// ===============================
+// 5. Ruta base de prueba
+// ===============================
+app.get("/", (req, res) => {
+  res.send("🎶 Bienvenido al backend de VibeSphere — API activa");
+});
+
+// ===============================
+// 6. Levantar servidor
 // ===============================
 if (require.main === module) {
-  // Solo levantar el servidor si no está siendo importado (evita conflictos en test)
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () =>
-    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`)
+    console.log(`🚀 Servidor corriendo en http://localhost:${5000}`)
   );
 }
 

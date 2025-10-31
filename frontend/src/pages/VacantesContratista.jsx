@@ -1,243 +1,266 @@
-import React, { useState } from "react";
-import vacantesData from "../data/vacantesArtistasData";
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  getVacantesContratista,
+  deleteVacante,
+  createVacante,
+} from "../services/vacantesService";
 import "./VacantesContratista.css";
 
-function VacantesContratista() {
-  // Estado
-  const [activeTab, setActiveTab] = useState("panel");
-  const [selectedVacante, setSelectedVacante] = useState(null);
-  const [vacantes, setVacantes] = useState(vacantesData);
-
-  // Función: agregar nueva vacante del contratista
+export default function VacantesContratista() {
+  const [vacantes, setVacantes] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [showCrear, setShowCrear] = useState(false);
+  const [vacanteSeleccionada, setVacanteSeleccionada] = useState(null);
   const [nuevaVacante, setNuevaVacante] = useState({
-    puesto: "",
+    titulo: "",
     descripcion: "",
-    empresa: "",
-    contacto: "",
-    imagen: "/images/default.jpg",
-    postulados: [],
+    imagen: "",
   });
 
-  const agregarVacante = () => {
-    if (!nuevaVacante.puesto || !nuevaVacante.empresa) return;
-    const nueva = {
-      id: vacantes.length + 1,
-      ...nuevaVacante,
-    };
-    setVacantes([...vacantes, nueva]);
-    setNuevaVacante({
-      puesto: "",
-      descripcion: "",
-      empresa: "",
-      contacto: "",
-      imagen: "/images/default.jpg",
-      postulados: [],
-    });
-    alert("✅ Vacante publicada exitosamente");
+  // =========================
+  // 🔹 Cargar vacantes
+  // =========================
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getVacantesContratista();
+        setVacantes(
+          data?.length
+            ? data
+            : [
+                {
+                  id: 1,
+                  titulo: "🎤 Vocalista para evento corporativo",
+                  descripcion:
+                    "Evento privado en Bogotá. Pago por presentación.",
+                  imagen:
+                    "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=800",
+                },
+                {
+                  id: 2,
+                  titulo: "🎧 Productor musical freelance",
+                  descripcion:
+                    "Buscamos productor para mezcla y master de temas urbanos.",
+                  imagen:
+                    "https://images.unsplash.com/photo-1614149162883-504ce4d13909?w=800",
+                },
+                {
+                  id: 3,
+                  titulo: "🎸 Guitarrista para grabación en estudio",
+                  descripcion:
+                    "Se requiere guitarrista con experiencia en rock alternativo.",
+                  imagen:
+                    "https://images.unsplash.com/photo-1507835661030-7ce1cfb8d8a0?w=800",
+                },
+                {
+                  id: 4,
+                  titulo: "🥁 Baterista para banda pop",
+                  descripcion:
+                    "Buscamos baterista para shows en vivo y grabaciones.",
+                  imagen:
+                    "https://images.unsplash.com/photo-1521334884684-d80222895322?w=800",
+                },
+                {
+                  id: 5,
+                  titulo: "🎹 Pianista para eventos elegantes",
+                  descripcion:
+                    "Contratación para evento de gala. Repertorio clásico y moderno.",
+                  imagen:
+                    "https://images.unsplash.com/photo-1485579149621-3123dd979885?w=800",
+                },
+                {
+                  id: 6,
+                  titulo: "🎙️ Locutor para comerciales radiales",
+                  descripcion:
+                    "Grabación de voz profesional para campaña publicitaria.",
+                  imagen:
+                    "https://images.unsplash.com/photo-1611605698335-8b1569810432?w=800",
+                },
+                {
+                  id: 7,
+                  titulo: "🎥 Editor de video musical",
+                  descripcion:
+                    "Se busca editor con experiencia en contenido para YouTube.",
+                  imagen:
+                    "https://images.unsplash.com/photo-1581091870627-3c1c8c4a1a39?w=800",
+                },
+                {
+                  id: 8,
+                  titulo: "🎛️ Técnico de sonido en vivo",
+                  descripcion:
+                    "Para conciertos pequeños en Medellín. Se paga por evento.",
+                  imagen:
+                    "https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?w=800",
+                },
+              ]
+        );
+      } catch (err) {
+        console.error("Error cargando vacantes:", err);
+      }
+    }
+    fetchData();
+  }, []);
+
+  // =========================
+  // 🗑️ Eliminar vacante
+  // =========================
+  const handleEliminar = (vacante) => {
+    setVacanteSeleccionada(vacante);
+    setShowModal(true);
   };
 
-  const confirmarContratacion = (vacanteId, postulanteId) => {
-    setVacantes((prev) =>
-      prev.map((vacante) =>
-        vacante.id === vacanteId
-          ? {
-              ...vacante,
-              postulados: vacante.postulados.map((p) =>
-                p.id === postulanteId
-                  ? { ...p, estado: "Contratado" }
-                  : p
-              ),
-            }
-          : vacante
-      )
-    );
+  const confirmarEliminacion = async () => {
+    if (vacanteSeleccionada) {
+      await deleteVacante(vacanteSeleccionada.id);
+      setVacantes(vacantes.filter((v) => v.id !== vacanteSeleccionada.id));
+      setShowModal(false);
+    }
   };
 
+  // =========================
+  // ➕ Crear nueva vacante
+  // =========================
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNuevaVacante({ ...nuevaVacante, [name]: value });
+  };
+
+  const handleCrearVacante = async (e) => {
+    e.preventDefault();
+    if (!nuevaVacante.titulo || !nuevaVacante.descripcion) {
+      alert("Por favor completa los campos requeridos");
+      return;
+    }
+    const creada = await createVacante(nuevaVacante);
+    if (creada) {
+      setVacantes([...vacantes, creada]);
+      setNuevaVacante({ titulo: "", descripcion: "", imagen: "" });
+      setShowCrear(false);
+    }
+  };
+
+  // =========================
+  // 🖥️ Renderizado
+  // =========================
   return (
     <div className="vacantes-contratista-container">
-      {/* Encabezado */}
-      <header className="header">
-        <img src="/iconoo.png" alt="VibeSphere Logo" className="logo" />
-        <h1>Gestión de Vacantes - Contratista</h1>
-      </header>
+      <h1>🎶 Mis Vacantes Publicadas</h1>
 
-      {/* Pestañas */}
-      <nav className="tabs">
-        <button
-          className={activeTab === "panel" ? "active" : ""}
-          onClick={() => setActiveTab("panel")}
-        >
-          Mis Vacantes
-        </button>
-        <button
-          className={activeTab === "nueva" ? "active" : ""}
-          onClick={() => setActiveTab("nueva")}
-        >
-          Publicar Vacante
-        </button>
-        <button
-          className={activeTab === "postulados" ? "active" : ""}
-          onClick={() => setActiveTab("postulados")}
-        >
-          Postulados
-        </button>
-        <button
-          className={activeTab === "contrato" ? "active" : ""}
-          onClick={() => setActiveTab("contrato")}
-        >
-          Contratos
-        </button>
-      </nav>
+      {/* 💜 Botón flotante para crear */}
+      <button className="btn-flotante" onClick={() => setShowCrear(true)}>
+        ➕ Crear Vacante
+      </button>
 
-      {/* Contenido de pestañas */}
-      <div className="tab-content">
-        {/* Panel de Vacantes Publicadas */}
-        {activeTab === "panel" && (
-          <div className="panel">
-            <h2>Mis Vacantes Publicadas</h2>
-            {vacantes.length === 0 ? (
-              <p>No has publicado vacantes aún.</p>
-            ) : (
-              <div className="vacantes-grid">
-                {vacantes.map((v) => (
-                  <div
-                    key={v.id}
-                    className="vacante-card"
-                    onClick={() => setSelectedVacante(v)}
-                  >
-                    <img src={v.imagen} alt={v.empresa} />
-                    <h3>{v.puesto}</h3>
-                    <p>
-                      {v.descripcion.length > 60
-                        ? `${v.descripcion.slice(0, 60)}...`
-                        : v.descripcion}
-                    </p>
-                    <span className="empresa">{v.empresa}</span>
-                  </div>
-                ))}
-              </div>
-            )}
+      {/* 📋 Listado de vacantes */}
+      <div className="vacantes-grid">
+        {vacantes.map((v) => (
+          <motion.div
+            key={v.id}
+            className="vacante-card"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <img src={v.imagen} alt={v.titulo} />
+            <h3>{v.titulo}</h3>
+            <p>{v.descripcion}</p>
+            <button onClick={() => handleEliminar(v)} className="btn-eliminar">
+              🗑️ Eliminar
+            </button>
+          </motion.div>
+        ))}
+      </div>
 
-            {selectedVacante && (
-              <div className="modal">
-                <div className="modal-content">
-                  <h2>{selectedVacante.puesto}</h2>
-                  <p>{selectedVacante.descripcion}</p>
-                  <p>
-                    <strong>Contacto:</strong> {selectedVacante.contacto}
-                  </p>
+      {/* 🪄 Modal para crear vacante */}
+      <AnimatePresence>
+        {showCrear && (
+          <motion.div
+            className="modal-overlay solid"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="modal-card"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+            >
+              <h2>➕ Crear Nueva Vacante</h2>
+              <form onSubmit={handleCrearVacante}>
+                <input
+                  type="text"
+                  name="titulo"
+                  placeholder="Título"
+                  value={nuevaVacante.titulo}
+                  onChange={handleChange}
+                />
+                <textarea
+                  name="descripcion"
+                  placeholder="Descripción"
+                  value={nuevaVacante.descripcion}
+                  onChange={handleChange}
+                />
+                <input
+                  type="text"
+                  name="imagen"
+                  placeholder="URL Imagen"
+                  value={nuevaVacante.imagen}
+                  onChange={handleChange}
+                />
+                <div className="modal-actions">
+                  <button type="submit" className="btn-crear">
+                    Publicar
+                  </button>
                   <button
-                    onClick={() => setSelectedVacante(null)}
-                    className="cerrar-btn"
+                    type="button"
+                    className="btn-cancelar"
+                    onClick={() => setShowCrear(false)}
                   >
-                    Cerrar
+                    Cancelar
                   </button>
                 </div>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 🗑️ Modal Confirmar Eliminación */}
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            className="modal-overlay solid"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="modal-card"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+            >
+              <h2>🗑️ Confirmar Eliminación</h2>
+              <p>
+                ¿Seguro deseas eliminar la vacante{" "}
+                <strong>{vacanteSeleccionada?.titulo}</strong>?
+              </p>
+              <div className="modal-actions">
+                <button onClick={confirmarEliminacion} className="btn-crear">
+                  Sí, eliminar
+                </button>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="btn-cancelar"
+                >
+                  Cancelar
+                </button>
               </div>
-            )}
-          </div>
+            </motion.div>
+          </motion.div>
         )}
-
-        {/* Publicar nueva vacante */}
-        {activeTab === "nueva" && (
-          <div className="publicar-vacante">
-            <h2>Publicar Nueva Vacante</h2>
-            <div className="form-vacante">
-              <input
-                type="text"
-                placeholder="Puesto"
-                value={nuevaVacante.puesto}
-                onChange={(e) =>
-                  setNuevaVacante({ ...nuevaVacante, puesto: e.target.value })
-                }
-              />
-              <input
-                type="text"
-                placeholder="Empresa"
-                value={nuevaVacante.empresa}
-                onChange={(e) =>
-                  setNuevaVacante({ ...nuevaVacante, empresa: e.target.value })
-                }
-              />
-              <textarea
-                placeholder="Descripción"
-                value={nuevaVacante.descripcion}
-                onChange={(e) =>
-                  setNuevaVacante({
-                    ...nuevaVacante,
-                    descripcion: e.target.value,
-                  })
-                }
-              />
-              <input
-                type="text"
-                placeholder="Contacto"
-                value={nuevaVacante.contacto}
-                onChange={(e) =>
-                  setNuevaVacante({
-                    ...nuevaVacante,
-                    contacto: e.target.value,
-                  })
-                }
-              />
-              <button onClick={agregarVacante}>Publicar Vacante</button>
-            </div>
-          </div>
-        )}
-
-        {/* Lista de Postulados */}
-        {activeTab === "postulados" && (
-          <div className="postulados">
-            <h2>Postulados por Vacante</h2>
-            {vacantes.map((v) => (
-              <div key={v.id} className="vacante-postulados">
-                <h3>{v.puesto}</h3>
-                {v.postulados.length === 0 ? (
-                  <p>No hay postulados aún.</p>
-                ) : (
-                  <ul>
-                    {v.postulados.map((p) => (
-                      <li key={p.id}>
-                        <strong>{p.nombre}</strong> — {p.email} ({p.estado})
-                        {p.estado !== "Contratado" && (
-                          <button
-                            className="confirmar-btn"
-                            onClick={() => confirmarContratacion(v.id, p.id)}
-                          >
-                            Confirmar Contratación
-                          </button>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Contratos registrados */}
-        {activeTab === "contrato" && (
-          <div className="registro-contrato">
-            <h2>Contratos Registrados</h2>
-            <div className="contratos-lista">
-              {vacantes
-                .flatMap((v) =>
-                  v.postulados.filter((p) => p.estado === "Contratado")
-                )
-                .map((p, i) => (
-                  <div key={i} className="contrato-item">
-                    <span>
-                      Contrato generado para: <strong>{p.nombre}</strong>
-                    </span>
-                  </div>
-                ))}
-            </div>
-          </div>
-        )}
-      </div>
+      </AnimatePresence>
     </div>
   );
 }
-
-export default VacantesContratista;
