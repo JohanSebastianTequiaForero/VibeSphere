@@ -1,7 +1,11 @@
-import "./Explorer.css";
+import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import "./Explorer.css";
 
 export default function Explorer() {
+  const navigate = useNavigate();
+
   return (
     <motion.div
       className="home-page"
@@ -22,6 +26,7 @@ export default function Explorer() {
 
       {/* 🔹 Tarjetas de roles */}
       <div className="roles-container">
+        {/* 🎤 Rol: Artista */}
         <motion.div
           className="role-card"
           whileHover={{ scale: 1.05 }}
@@ -33,9 +38,15 @@ export default function Explorer() {
             que buscan dar vida a sus eventos. Participa en competencias, recibe
             retroalimentación y promueve tu carrera con herramientas digitales.
           </p>
-          <button>Descubre más</button>
+          <button
+            className="btn-rol"
+            onClick={() => navigate("/artista")}
+          >
+            🎵 Descubre más
+          </button>
         </motion.div>
 
+        {/* 📅 Rol: Contratista */}
         <motion.div
           className="role-card"
           whileHover={{ scale: 1.05 }}
@@ -47,7 +58,12 @@ export default function Explorer() {
             experiencias memorables. Accede a perfiles verificados, escucha
             demos y contrata de forma segura dentro del ecosistema VibeSphere.
           </p>
-          <button>Descubre más</button>
+          <button
+            className="btn-rol"
+            onClick={() => navigate("/contratista")}
+          >
+            🚀 Descubre más
+          </button>
         </motion.div>
       </div>
     </motion.div>

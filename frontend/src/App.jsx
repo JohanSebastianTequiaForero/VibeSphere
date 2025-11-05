@@ -16,6 +16,8 @@ import Home from "./pages/Home";
 import VacantesArtistas from "./pages/VacantesArtistas";
 import Explorer from "./pages/Explorer";
 import Artista from "./pages/Artista";
+import ModalConfirmacion from "./components/ModalConfirmacion";
+import ModalPostulacion from "./components/ModalPostulacion";
 import Contratista from "./pages/Contratista";
 import PanelContratista from "./pages/PanelContratista";
 import VacantesContratista from "./pages/VacantesContratista";
@@ -81,6 +83,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+    
         </Routes>
       </Router>
     </AuthProvider>

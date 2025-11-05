@@ -66,6 +66,27 @@ function Login() {
         }
       }
 
+      // 🔹 Si el usuario es contratista (rol 2), obtener su info extra
+      if (usuarioData.rol === 2) {
+        try {
+          const contratistaRes = await fetch(
+            `http://localhost:5000/api/contratistainfo/${usuarioData.id}`
+          );
+          const contratistaData = await contratistaRes.json();
+
+          if (contratistaData.success && contratistaData.data) {
+            usuarioData = {
+              ...usuarioData,
+              descripcion: contratistaData.data.descripcion,
+              foto_perfil: contratistaData.data.foto_perfil,
+            };
+          }
+        } catch (error) {
+           console.error("Error al obtener datos del contratista:", error);
+          }
+        }
+
+
       // ✅ Guardar usuario en contexto y en localStorage
       loginUser(usuarioData);
       localStorage.setItem("usuario", JSON.stringify(usuarioData));
