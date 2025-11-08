@@ -3,17 +3,21 @@
 ## 1. Reglas de nombres
 
 ### 1.1 Variables
+
 - Usar **camelCase**: `totalAmount`, `userName`.
 - Constantes globales en **SCREAMING_SNAKE_CASE**: `MAX_RETRIES`.
 - Nombres claros y descriptivos (evitar abreviaturas).
 
 ### 1.2 Clases
+
 - Usar **PascalCase**: `UserController`, `DatabaseService`.
 
 ### 1.3 Métodos y funciones
+
 - **camelCase**: `getUserById()`, `calculateTotalPrice()`.
 
 ### 1.4 Archivos
+
 - **JavaScript/React**: `kebab-case` → `user-routes.js`, `login-form.jsx`.
 - Un componente React por archivo, con el nombre del componente.
 
@@ -22,6 +26,7 @@
 ## 2. Comentarios y documentación interna
 
 ### 2.1 Comentarios de una línea
+
 ```js
 // Verifica si el usuario está autenticado
 
@@ -54,3 +59,4 @@ var tp = ctotal(i);
 class user_service {
   GetUser(id) { ... }
 }
+```

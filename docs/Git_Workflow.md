@@ -1,14 +1,16 @@
 # Git Workflow – Proyecto VibeSphere
 
 ## Objetivo
+
 Implementar control de versiones con Git y establecer un flujo de trabajo colaborativo, asegurando un desarrollo ordenado, seguro y documentado del proyecto.
 
 ---
 
 ## 1. Repositorio en GitHub
-- Repositorio: `Proyecto`  
-- Tipo: Público   
-- Inicializar con README.md  
+
+- Repositorio: `Proyecto`
+- Tipo: Público
+- Inicializar con README.md
 - Conexión local:
 
 ```bash
@@ -18,7 +20,7 @@ git add .
 git commit -m "Initial commit"
 git push -u origin main
 
-## Flujo de ramas 
+## Flujo de ramas
 
 | Rama        | Propósito                                                                      |
 | ----------- | ------------------------------------------------------------------------------ |
@@ -40,7 +42,7 @@ Pull: antes de empezar a trabajar para mantener la rama actualizada.
 ## Política de Pull Requests (PR)
 Crear PR desde la rama temporal hacia develop.
 Revisar código antes de hacer merge.
-Merge con squash o rebase según política 
+Merge con squash o rebase según política
 
 ## Buenas prácticas adicionales
 
@@ -49,3 +51,4 @@ Evitar commits masivos sin descripción.
 Eliminar ramas temporales después de hacer merge a develop.
 Documentar cambios importantes en PRs y README.
 
+```

@@ -33,6 +33,7 @@
 ## 🚀 Cómo ejecutar el proyecto
 
 ### 1. Backend
+
 ```bash
 cd backend
 cp .env.example .env
@@ -73,3 +74,4 @@ react
 react-dom
 react-router-dom
 
+```

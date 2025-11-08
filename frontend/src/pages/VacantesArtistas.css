@@ -1,0 +1,90 @@
+.vacantes-artistas-container {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #2b1055, #120230);
+  color: white;
+  text-align: center;
+  padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vacantes-artistas-container h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #e4d9ff;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+}
+
+.carousel {
+  width: 90%;
+  max-width: 600px;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 0 25px rgba(90, 0, 200, 0.3);
+  backdrop-filter: blur(8px);
+  transition: all 0.4s ease;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.carousel-item h2 {
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 0.6rem;
+}
+
+.carousel-item p {
+  color: #dcdcdc;
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+button {
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #7a00ff, #b600ff);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #b600ff, #ff00b3);
+  transform: scale(1.05);
+}
+
+.btn-disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
+.sin-vacantes {
+  color: #ccc;
+  font-style: italic;
+  margin-top: 2rem;
+}
+@media (max-width: 400px) {
+  .vacantes-artistas-container h1 {
+    font-size: 2rem;
+  }
+
+  .carousel-item img {
+    height: 150px;
+  }
+}

@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-// 🔹Crear el contexto
+// 🔹 Crear el contexto
 export const AuthContext = createContext();
 
-// 🔹Hook personalizado para usar el contexto fácilmente
+// 🔹 Hook personalizado para usar el contexto fácilmente
 export const useAuth = () => useContext(AuthContext);
 
-// 🔹Proveedor del contexto (engloba toda la app)
+// 🔹 Proveedor del contexto (engloba toda la app)
 export const AuthProvider = ({ children }) => {
   const [usuario, setUsuario] = useState(null);
 

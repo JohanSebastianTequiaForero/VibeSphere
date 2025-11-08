@@ -1,31 +1,62 @@
 /* Fondo general */
 .register-container {
   display: flex;
-  justify-content: center; /* Centrado horizontal */
-  align-items: flex-start; /* 🔥 Pega el contenido arriba */
-  min-height: 100vh; /* Mantiene pantalla completa */
-  background: linear-gradient(200deg, #2c004a, #9b6cc2,rgb(27, 45, 211));;
-  padding-top: 80px; /* Espacio fijo arriba */
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #5437d3, #041f4e 55%, #3b82f6);
+  padding-top: 80px;
+
+  /* 🔥 Animación de degradado en movimiento */
+  background-size: 200% 200%;
+  animation: gradientMove 8s ease infinite;
 }
 
+/* Animación del fondo */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
 /* Caja del formulario */
 .register-card {
-  background-color: #9b6cc2; /* morado suave */
+  background: linear-gradient(145deg, #2a5791, #163a69 65%, #2b67c9);
   padding: 2rem;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  width: 300px;
+  width: 600px;
   text-align: center;
+
+  /* 🔥 Animación de entrada */
+  animation: fadeInUp 1s ease-out;
 }
 
+/* Efecto de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 .register-card h2 {
   color: white;
   margin-bottom: 20px;
+  animation: fadeIn 1.2s ease-in;
 }
 
-/* Inputs, select y textarea (estándar) */
+/* Inputs, select y textarea */
 .register-card input,
 .register-card select,
 .register-card textarea {
@@ -39,12 +70,24 @@
   font-size: 14px;
   font-family: inherit;
   box-sizing: border-box;
+
+  /* 🔥 Animación de enfoque */
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-/* Textarea igual que inputs */
+.register-card input:focus,
+.register-card select:focus,
+.register-card textarea:focus {
+  transform: scale(1.03);
+  box-shadow: 0 0 10px rgba(0, 162, 255, 0.7);
+}
+
+/* Textarea */
 .register-card textarea {
-  resize: none; /* No redimensionar */
-  height: 100px; /* Igual que inputs */
+  resize: none;
+  height: 100px;
 }
 
 /* Contenedor para input file */
@@ -60,10 +103,10 @@
   display: none;
 }
 
-/* Botón personalizado para archivo */
+/* Botón personalizado archivo */
 .file-upload label {
   display: block;
-  background: #5e009a;
+  background: linear-gradient(145deg, #488be2, #025fd8 65%, #073c91);
   color: white;
   text-align: center;
   padding: 12px;
@@ -71,14 +114,15 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
 }
 
 .file-upload label:hover {
-  background: #4a007a;
+  background: #5e1cda;
+  transform: scale(1.05);
 }
 
-/* Nombre de archivo seleccionado */
+/* Nombre archivo seleccionado */
 .file-name {
   font-size: 0.85rem;
   color: #fff;
@@ -99,50 +143,204 @@ button {
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+  transition:
+    transform 0.2s ease,
+    background 0.3s ease;
 }
 
-.volver {
-  background-color: #c2b6d9;
+button:hover {
+  transform: translateY(-2px);
 }
 
+/* Botón registrar */
 .registrar {
-  background-color: #5e009a;
+  display: block;
+  background: linear-gradient(145deg, #006eff, #397cd3 65%, #2b67c9);
   color: white;
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+/* ============================= */
+/* 🔹 Estilos adicionales CONTRATISTA */
+/* ============================= */
+
+/* Textareas largas (descripcion) */
+.styled-textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  max-height: 200px;
+  background: #f9f9f9;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.styled-textarea:focus {
+  transform: scale(1.02);
+  box-shadow: 0 0 10px rgba(0, 162, 255, 0.7);
+}
+
+/* Contador de caracteres */
+.register-card p {
+  font-size: 12px;
+  text-align: right;
+  margin-top: -5px;
+  margin-bottom: 10px;
+  color: #dcdcdc;
+  font-style: italic;
+}
+
+/* Diferenciar secciones artista / contratista */
+.section-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: left;
+  margin: 10px 0 5px;
+  border-left: 3px solid #00a2ff;
+  padding-left: 6px;
+  animation: fadeIn 1s ease;
+}
+
+/* Subida de archivos (contratista y artista, más consistente) */
+.file-upload label {
+  background: linear-gradient(145deg, #006eff, #025fd8 65%, #073c91);
+  font-size: 13px;
+}
+
+.file-upload label:hover {
+  background: #1a4ddb;
+}
+
+.registrar:hover {
+  background: #5e1cda;
+  transform: scale(1.07);
 }
 
 .login-link {
   margin-top: 15px;
   text-align: center;
+  animation: fadeIn 2s ease-in;
 }
 
 .login-link a {
-  color: #ffffff; /* Blanco */
+  color: #ffffff;
   font-size: 15px;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .login-link a:hover {
-  color: #562fb3; /* Rosa suave al pasar el mouse */
+  color: #2703a8;
   text-decoration: underline;
+  transform: scale(1.1);
 }
-
 
 /* Lado derecho con logo */
 .register-logo {
   margin-left: 50px;
+  animation: fadeInRight 1.2s ease-out;
 }
 
 .register-logo img {
-  max-width: 500px;
+  max-width: 380px;
   border-radius: 8px;
+  transition: transform 0.4s ease;
+}
+
+.register-logo img:hover {
+  transform: scale(1.05) rotate(2deg);
 }
 
 .error {
-  color: red;
+  color: rgb(255, 255, 255);
   font-size: 12px;
   margin-top: -10px;
   margin-bottom: 10px;
+  animation: shake 0.4s ease-in-out;
 }
 
+/* Campo contraseña */
+.password-field {
+  position: relative;
+  width: 100%;
+}
 
+.password-field input {
+  width: 100%;
+  padding-right: 40px;
+  box-sizing: border-box;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-38%); /* centra fijo el ícono */
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #7f0fff;
+  font-size: 18px; /* tamaño fijo */
+  line-height: 0;
+  padding: 0;
+}
+
+.toggle-password:hover {
+  transform: scale(1.2);
+}
+
+/* 🔥 Keyframes extra */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

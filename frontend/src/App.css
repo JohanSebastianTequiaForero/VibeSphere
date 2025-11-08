@@ -59,8 +59,12 @@ button.registrar {
   color: white;
 }
 
-
 .logo-card h1 {
   font-size: 2.5rem;
   margin: 0;
+}
+.logo-card p {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+  color: #ddd;
 }

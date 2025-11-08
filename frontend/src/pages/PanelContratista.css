@@ -1,0 +1,88 @@
+.panel-contratista {
+  padding: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  color: #2c2c2c;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.header .logo {
+  width: 50px;
+  height: 50px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.tabs button {
+  padding: 10px 16px;
+  border: none;
+  background-color: #eee;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.tabs button.active {
+  background-color: #6a00f6;
+  color: white;
+}
+
+.tab-content {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.vacante-card,
+.postulado-card,
+.contratar-card,
+.contrato-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.btn-contratar {
+  background-color: #6a00f6;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-contratar:hover {
+  background-color: #4b00c8;
+}
+
+.estado {
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: 600;
+  color: #6a00f6;
+}
+
+.estado.completado {
+  color: green;
+}
+.estado.en-progreso {
+  color: orange;
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "titulo": "🎤 Vocalista para evento en vivo",
+    "descripcion": "Buscamos cantante con repertorio pop y buena presencia escénica. Ensayo previo y evento de 2 horas.",
+    "ciudad": "Bogotá",
+    "fecha": "2025-11-05",
+    "tipo": "Evento en vivo",
+    "pago": "400.000 COP",
+    "imagen": "/uploads/vocalista.jpg"
+  },
+  {
+    "id": 2,
+    "titulo": "🎸 Guitarrista para grabación de estudio",
+    "descripcion": "Se requiere guitarrista versátil para sesión de grabación de temas acústicos.",
+    "ciudad": "Medellín",
+    "fecha": "2025-11-12",
+    "tipo": "Grabación de estudio",
+    "pago": "300.000 COP",
+    "imagen": "/uploads/guitarrista.jpg"
+  },
+  {
+    "id": 3,
+    "titulo": "🥁 Baterista para banda de rock alternativo",
+    "descripcion": "Se busca baterista con experiencia para conformar banda de rock alternativo, con presentaciones en bares.",
+    "ciudad": "Cali",
+    "fecha": "2025-12-01",
+    "tipo": "Banda fija",
+    "pago": "Por evento",
+    "imagen": "/uploads/baterista.jpg"
+  },
+  {
+    "id": 4,
+    "titulo": "🎧 DJ para evento corporativo",
+    "descripcion": "DJ con experiencia en eventos empresariales y repertorio variado. Se provee el equipo básico.",
+    "ciudad": "Bogotá",
+    "fecha": "2025-11-25",
+    "tipo": "Evento corporativo",
+    "pago": "600.000 COP",
+    "imagen": "/uploads/dj.jpg"
+  },
+  {
+    "id": 5,
+    "titulo": "🎺 Trompetista para grabación de salsa",
+    "descripcion": "Buscamos trompetista con estilo salsa para sesión de estudio. Se requiere lectura musical básica.",
+    "ciudad": "Barranquilla",
+    "fecha": "2025-11-15",
+    "tipo": "Grabación en estudio",
+    "pago": "250.000 COP",
+    "imagen": "/uploads/trompetista.jpg"
+  },
+  {
+    "id": 6,
+    "titulo": "🎤 Cantante femenina para dúo acústico",
+    "descripcion": "Se busca vocalista femenina con registro pop/folk para dúo acústico en presentaciones semanales.",
+    "ciudad": "Cartagena",
+    "fecha": "2025-12-10",
+    "tipo": "Dúo musical",
+    "pago": "Por evento",
+    "imagen": "/uploads/duo.jpg"
+  }
+]

@@ -1,0 +1,103 @@
+.home-page {
+  padding: 60px;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(180deg, #1e0c4d, #2b0b60, #3d0e75);
+  min-height: 100vh;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.home-header h1 {
+  font-size: 2.8rem;
+  color: #ffd166;
+}
+.home-header span {
+  color: #3a86ff;
+}
+.home-header p {
+  color: #ddd;
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+/* 🔹 Tarjetas de rol */
+.roles-container {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.role-card {
+  background: rgba(20, 40, 90, 0.9);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  max-width: 360px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.role-card h2 {
+  color: #3a86ff;
+  margin-bottom: 10px;
+}
+.role-card p {
+  color: #eee;
+  line-height: 1.6;
+}
+.role-card button {
+  background: #ffd166;
+  border: none;
+  color: #000;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: 0.3s ease;
+}
+.role-card button:hover {
+  background: #ffca3a;
+  transform: translateY(-2px);
+}
+
+/* 🔹 Visión y comunidad */
+.vision-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.vision-card {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.vision-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+.vision-card h2 {
+  color: #3a86ff;
+  margin-bottom: 15px;
+}
+.vision-card p,
+.vision-card li {
+  color: #eee;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.vision-card ul {
+  list-style: disc;
+  padding-left: 20px;
+}
