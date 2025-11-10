@@ -36,7 +36,7 @@ const PanelContratista = () => {
   return (
     <div className="panel-contratista">
       <header className="header">
-        <img src="/logo-vibesphere.png" alt="VibeSphere" className="logo" />
+        <img src="/iconoo.png" alt="VibeSphere" className="logo" />
         <h1>Panel del Contratista</h1>
       </header>
 

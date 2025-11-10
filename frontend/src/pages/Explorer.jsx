@@ -40,7 +40,7 @@ export default function Explorer() {
           </p>
           <button
             className="btn-rol"
-            onClick={() => navigate("/artista")}
+            onClick={() => navigate("/PerfilArtista")}
           >
             🎵 Descubre más
           </button>
@@ -60,7 +60,7 @@ export default function Explorer() {
           </p>
           <button
             className="btn-rol"
-            onClick={() => navigate("/contratista")}
+            onClick={() => navigate("/PerfilContratista")}
           >
             🚀 Descubre más
           </button>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import ModalPostulacion from "../components/ModalPostulacion";
 import { getVacantes, postularVacante } from "../services/vacantesService";
 import "./VacantesArtistas.css";
@@ -9,11 +10,12 @@ export default function VacantesArtistas() {
   const [vacanteSeleccionada, setVacanteSeleccionada] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [postuladas, setPostuladas] = useState(() => {
-    const saved = localStorage.getItem("postuladas");
+    const saved = localStorage.getItem("vacantesPostuladas");
     return saved ? JSON.parse(saved) : [];
   });
+  const navigate = useNavigate();
 
-  // 🔹 Cargar vacantes del backend o usar datos de respaldo
+  // 🔹 Cargar vacantes del backend o usar datos simulados
   useEffect(() => {
     async function fetchVacantes() {
       try {
@@ -21,9 +23,7 @@ export default function VacantesArtistas() {
         if (Array.isArray(data) && data.length > 0) {
           setVacantes(data);
         } else {
-          console.warn(
-            "⚠️ No hay vacantes en el backend. Usando datos locales..."
-          );
+          console.warn("⚠️ No hay vacantes en el backend. Usando datos locales...");
           setVacantes([
             {
               id: 1,
@@ -35,7 +35,7 @@ export default function VacantesArtistas() {
             },
             {
               id: 2,
-              titulo: "🎸 Guitarrista para estudio",
+              titulo: "🎸 Guitarrista para grabación de estudio",
               descripcion:
                 "Grabación de temas acústicos con sesión de ensayo previa.",
               imagen:
@@ -43,7 +43,7 @@ export default function VacantesArtistas() {
             },
             {
               id: 3,
-              titulo: "🥁 Baterista para tour nacional",
+              titulo: "🥁 Baterista para gira nacional",
               descripcion: "Se requiere disponibilidad para giras de 2 meses.",
               imagen:
                 "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800",
@@ -65,19 +65,20 @@ export default function VacantesArtistas() {
     fetchVacantes();
   }, []);
 
-  // 🔹 Postular a una vacante
+  // 🔹 Abrir modal de postulación
   const handlePostular = (vacante) => {
     setVacanteSeleccionada(vacante);
     setShowModal(true);
   };
 
+  // 🔹 Confirmar postulación (envío al backend simulado)
   const confirmarPostulacion = async () => {
     if (vacanteSeleccionada) {
       try {
         await postularVacante(vacanteSeleccionada.id, "artista_demo");
         const nuevasPostuladas = [...postuladas, vacanteSeleccionada.id];
         setPostuladas(nuevasPostuladas);
-        localStorage.setItem("postuladas", JSON.stringify(nuevasPostuladas));
+        localStorage.setItem("vacantesPostuladas", JSON.stringify(nuevasPostuladas));
       } catch (error) {
         console.error("❌ Error al postular:", error);
       } finally {
@@ -103,7 +104,7 @@ export default function VacantesArtistas() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
       >
-        Encuentra oportunidades únicas para mostrar tu talento.
+        Encuentra oportunidades únicas para mostrar tu talento y crecer profesionalmente.
       </motion.p>
 
       <div className="vacantes-grid">
@@ -137,6 +138,23 @@ export default function VacantesArtistas() {
         </AnimatePresence>
       </div>
 
+      {/* BOTONES DE NAVEGACIÓN */}
+      <div className="acciones-artista">
+        <button
+          className="btn-volver"
+          onClick={() => navigate("/perfil-artista")}
+        >
+          🎤 Ir a mi perfil
+        </button>
+        <button
+          className="btn-panel"
+          onClick={() => navigate("/panel-artista")}
+        >
+          🎬 Ir al panel de artista
+        </button>
+      </div>
+
+      {/* MODAL DE CONFIRMACIÓN */}
       <ModalPostulacion
         show={showModal}
         vacante={vacanteSeleccionada}

@@ -130,9 +130,8 @@ const Navbar = () => {
           (String(valorRol) === "1" ||
             String(valorRol).toLowerCase().includes("art")) && (
             <>
-              <Link to="/artista">🎤 {isExpanded && "Artista"}</Link>
               <Link to="/VacantesArtistas">🎵 {isExpanded && "Vacantes"}</Link>
-              <Link to="/Perfil">🎵 {isExpanded && "Perfil"}</Link>
+              <Link to="/PerfilArtista">🎵 {isExpanded && "Perfil"}</Link>
             </>
           )}
 
@@ -140,11 +139,10 @@ const Navbar = () => {
           (String(valorRol) === "2" ||
             String(valorRol).toLowerCase().includes("contr")) && (
             <>
-              <Link to="/contratista">💼 {isExpanded && "Contratista"}</Link>
               <Link to="/VacantesContratista">
                 🧾 {isExpanded && "Gestionar Vacantes"}
               </Link>
-              <Link to="/Perfil">🎵 {isExpanded && "Perfil"}</Link>
+              <Link to="/PerfilContratista">🎵 {isExpanded && "Perfil"}</Link>
               
             </>
           )}

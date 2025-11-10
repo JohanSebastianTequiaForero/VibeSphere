@@ -1,0 +1,186 @@
+.perfil-contratista-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #0a001a, #1b0066, #2d0b9a);
+  background-size: 300% 300%;
+  animation: gradientShift 10s ease infinite;
+  font-family: "Poppins", sans-serif;
+  color: #eaeaff;
+  padding: 40px;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.perfil-contratista-card {
+  background: rgba(25, 20, 50, 0.7);
+  backdrop-filter: blur(25px);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 950px;
+  box-shadow: 0 0 40px rgba(90, 60, 200, 0.4);
+  padding: 40px;
+  margin-top: 30px;
+}
+
+/* === CABECERA === */
+.perfil-header {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  border-bottom: 2px solid rgba(150, 130, 255, 0.2);
+  padding-bottom: 25px;
+  margin-bottom: 30px;
+}
+
+.perfil-foto-container {
+  text-align: center;
+}
+
+.perfil-foto {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 3px solid rgba(160, 140, 255, 0.8);
+  object-fit: cover;
+  box-shadow: 0 0 30px rgba(120, 90, 255, 0.4);
+}
+
+.btn-cambiar-foto {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(100, 80, 200, 0.3);
+  color: #cfcfff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn-cambiar-foto:hover {
+  background: rgba(150, 130, 255, 0.4);
+}
+.btn-cambiar-foto input {
+  display: none;
+}
+
+/* === INFO === */
+.perfil-info h2 {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+.perfil-info .rol {
+  color: #a58cff;
+  margin-bottom: 8px;
+}
+.perfil-info .correo {
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  color: #d4d4ff;
+}
+.perfil-bio {
+  width: 100%;
+  background: rgba(50, 40, 100, 0.4);
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  color: #f0eeff;
+  font-family: inherit;
+  margin-bottom: 15px;
+  resize: none;
+}
+.perfil-stats {
+  display: flex;
+  gap: 30px;
+  font-size: 0.95rem;
+  color: #c6bfff;
+}
+.perfil-stats strong {
+  display: block;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+/* === BOTONES === */
+.perfil-botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+button {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-guardar { background: linear-gradient(45deg, #4cc9f0, #4361ee); }
+.btn-publicar { background: linear-gradient(45deg, #560bad, #7209b7); }
+.btn-ver-artistas { background: linear-gradient(45deg, #3a0ca3, #4895ef); }
+.btn-editar { background: linear-gradient(45deg, #480ca8, #560bad); }
+.btn-cerrar { background: linear-gradient(45deg, #240046, #3c096c); }
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 10px rgba(160, 120, 255, 0.4);
+}
+
+/* === GALERÍA === */
+.perfil-galeria {
+  border-top: 2px solid rgba(150, 130, 255, 0.2);
+  padding-top: 25px;
+}
+.perfil-galeria h3 {
+  color: #b8aaff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+.galeria-item {
+  background: rgba(90, 70, 180, 0.4);
+  border-radius: 15px;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 0 15px rgba(60, 40, 130, 0.3);
+  transition: 0.3s;
+}
+.galeria-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(150, 120, 255, 0.5);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .perfil-header {
+    flex-direction: column;
+    align-items: center;
+  }
+  .perfil-info {
+    text-align: center;
+  }
+  .perfil-stats {
+    justify-content: center;
+  }
+}
+@media (max-width: 480px) {
+  .perfil-contratista-card {
+    padding: 25px;
+  }
+  .perfil-foto {
+    width: 130px;
+    height: 130px;
+  }
+}

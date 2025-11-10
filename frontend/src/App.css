@@ -68,3 +68,31 @@ button.registrar {
   margin-top: 0.5rem;
   color: #ddd;
 }
+/* Ajuste para que el contenido no se superponga con el sidebar */
+.main-content {
+  margin-left: 70px; /* coincide con el ancho colapsado */
+  transition: margin-left 0.3s ease;
+  padding: 20px;
+}
+
+/* Cuando el sidebar está expandido */
+.sidebar.expanded ~ .main-content {
+  margin-left: 240px; /* coincide con el ancho expandido */
+}
+/* Layout principal */
+.app-layout {
+  display: flex;
+}
+
+/* Contenido principal */
+.main-content {
+  flex: 1;
+  margin-left: 70px; /* ancho del sidebar colapsado */
+  transition: margin-left 0.3s ease;
+  padding: 20px;
+}
+
+/* Cuando el sidebar se expande */
+.sidebar.expanded ~ .main-content {
+  margin-left: 240px; /* ancho del sidebar expandido */
+}
