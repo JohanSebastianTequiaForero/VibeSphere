@@ -13,6 +13,9 @@ const obtenerContratista = async (req, res) => {
       });
     }
 
+    // ✅ NO agregar URL completa. 
+    // El frontend y navbar construyen la URL.
+
     res.json({
       success: true,
       message: "Datos del contratista obtenidos correctamente",
@@ -33,20 +36,30 @@ const actualizarContratista = async (req, res) => {
     const { usuario_id } = req.params;
     const categoria_id = req.body?.categoria_id || null;
     const descripcion = req.body?.descripcion || null;
-    const foto_perfil = req.file ? req.file.filename : null;
+    const nuevaFoto = req.file ? req.file.filename : null;
 
-    if (!categoria_id && !descripcion && !foto_perfil) {
-      return res.status(400).json({
+    // ✅ Obtener foto anterior real desde la DB
+    const contratistaExistente = await ContratistaInfo.obtenerContratista(usuario_id);
+
+    if (!contratistaExistente) {
+      return res.status(404).json({
         success: false,
-        message: "No se envió información para actualizar",
+        message: "Contratista no encontrado",
       });
     }
 
+    // ✅ foto_perfil existente es solo nombre de archivo
+    const fotoAnterior = contratistaExistente.foto_perfil;
+
+    // ✅ Si no enviaron nueva foto, conservar la anterior
+    const fotoFinal = nuevaFoto || fotoAnterior;
+
+    // ✅ Guardar solo si se envió un archivo nuevo
     const result = await ContratistaInfo.actualizarContratista(
       usuario_id,
       categoria_id,
       descripcion,
-      foto_perfil
+      nuevaFoto
     );
 
     if (result.affectedRows === 0) {
@@ -56,6 +69,11 @@ const actualizarContratista = async (req, res) => {
       });
     }
 
+    // ✅ IMPORTANTE:
+    // Siempre enviamos SOLO el nombre del archivo (como artista)
+    // Nunca una URL completa → navbar funciona perfecto
+    const fotoNormalizada = fotoFinal?.replace("http://localhost:5000/uploads/", "");
+
     res.json({
       success: true,
       message: "Información actualizada correctamente",
@@ -63,8 +81,7 @@ const actualizarContratista = async (req, res) => {
         usuario_id,
         categoria_id,
         descripcion,
-        foto_perfil:
-          foto_perfil && `http://localhost:5000/uploads/${foto_perfil}`,
+        foto_perfil: fotoNormalizada, // ✅ navbar recibe lo esperado
       },
     });
   } catch (error) {

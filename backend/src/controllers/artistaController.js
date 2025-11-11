@@ -1,6 +1,5 @@
-// backend/src/controllers/artistaController.js
 const db = require("../config/db");
-const Artista = require("../models/artista"); // ✅ importa el modelo correctamente
+const Artista = require("../models/artista");
 
 // ======================================================
 // Obtener información del artista
@@ -72,14 +71,14 @@ const actualizarArtista = async (req, res) => {
       });
     }
 
+    // ✅ DEVOLVER SOLO EL NOMBRE DEL ARCHIVO, NO LA URL COMPLETA
     res.json({
       success: true,
       message: "Información del artista actualizada correctamente",
       data: {
         usuario_id,
         competencias,
-        foto_perfil:
-          foto_perfil && `http://localhost:5000/uploads/${foto_perfil}`,
+        foto_perfil: foto_perfil || null,
       },
     });
   } catch (error) {
@@ -92,4 +91,4 @@ const actualizarArtista = async (req, res) => {
   }
 };
 
-module.exports = { obtenerArtista, actualizarArtista }; // ✅ Exporta ambas funciones
+module.exports = { obtenerArtista, actualizarArtista };

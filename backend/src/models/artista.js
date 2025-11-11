@@ -1,4 +1,3 @@
-// src/models/artista.js
 const db = require("../config/db");
 
 const Artista = {
@@ -17,18 +16,12 @@ const Artista = {
       [usuario_id]
     );
 
-    // Si no hay resultados, retorna null
     if (!rows.length) return null;
 
     const artista = rows[0];
 
-    // 🔹 Agregar URL completa para la imagen si existe
-    if (artista.foto_perfil) {
-      artista.foto_perfil = `http://localhost:5000/uploads/${artista.foto_perfil}`;
-    } else {
-      artista.foto_perfil = null; // o podrías poner una imagen por defecto
-    }
-
+    // ✅ Ya NO armamos la URL completa aquí
+    // ✅ Devolvemos solo el nombre del archivo
     return artista;
   },
 

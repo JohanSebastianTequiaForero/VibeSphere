@@ -67,50 +67,55 @@ const createUsuario = async (req, res) => {
     };
 
     if (payload.rol_id) payload.rol_id = Number(payload.rol_id);
-    if (payload.categoria_id)
-      payload.categoria_id = Number(payload.categoria_id);
-    if (payload.rol_id === 2) {
-      payload.descripcion = req.body.descripcion || null;
-    }
+    if (payload.categoria_id) payload.categoria_id = Number(payload.categoria_id);
+    if (payload.rol_id === 2) payload.descripcion = req.body.descripcion || null;
 
-    // Guardar en DB y generar token
+    // Guardar usuario en la base de datos y generar token
     const { usuarioId, token } = await Usuario.createUsuario(payload);
+    console.log(token);
 
-    // 🚀 Configurar transporte de nodemailer (usa Gmail o SMTP que configuraste en .env)
+    // ==========================
+    // ENVÍO DE CORREO DE VERIFICACIÓN
+    // ==========================
+    const verifyUrl = `http://localhost:3000/verify/${token}`;
+
+    // Configurar transporte para MailHog (sin autenticación)
     const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
+      host: "localhost",
+      port: 1025,
+      secure: false, // MailHog no usa TLS ni autenticación
     });
 
-    // 📩 Enviar email con link de verificación
-    const verifyUrl = `http://localhost:3000/verify/${token}`;
-    await transporter.sendMail({
-      from: `"VibeSphere" <${process.env.EMAIL_USER}>`,
+    // Enviar correo de verificación
+    const info = await transporter.sendMail({
+      from: '"VibeSphere" <no-reply@vibesphere.com>',
       to: correo,
       subject: "Verifica tu cuenta en VibeSphere",
       html: `
         <h2>¡Bienvenido a VibeSphere!</h2>
         <p>Gracias por registrarte. Antes de comenzar, debes verificar tu cuenta.</p>
-        <a href="${verifyUrl}" style="padding:10px 15px; background:#006eff; color:white; text-decoration:none; border-radius:5px;">
+        <a href="${verifyUrl}" 
+           style="padding:10px 15px; background:#006eff; color:white; 
+                  text-decoration:none; border-radius:5px; display:inline-block;">
           Verificar mi cuenta
         </a>
         <p>Este enlace expira en 1 hora.</p>
       `,
     });
 
+    console.log("📨 Correo de verificación enviado:", info.response);
+
     res.status(201).json({
       success: true,
       message: "Usuario creado. Revisa tu correo para verificar la cuenta.",
       data: { id: usuarioId },
     });
+
   } catch (error) {
-    console.error("Error en createUsuario:", error);
+    console.error("❌ Error en createUsuario:", error);
     res.status(500).json({
       success: false,
-      message: "Error al crear usuario",
+      message: "Error al crear usuario o enviar correo",
       error: error.message,
     });
   }
@@ -124,7 +129,7 @@ const verifyUsuario = async (req, res) => {
     const { token } = req.params;
     const decoded = jwt.verify(token, process.env.JWT_SECRET || "secreto_dev");
 
-    // Actualizar usuario a verificado
+    // Actualizar usuario como verificado
     await db.query(
       "UPDATE usuarios SET verificado = 1, token_verificacion = NULL WHERE correo = ?",
       [decoded.correo]
@@ -132,9 +137,10 @@ const verifyUsuario = async (req, res) => {
 
     res.json({ success: true, message: "Cuenta verificada con éxito" });
   } catch (error) {
-    res
-      .status(400)
-      .json({ success: false, message: "Token inválido o expirado" });
+    res.status(400).json({
+      success: false,
+      message: "Token inválido o expirado",
+    });
   }
 };
 
