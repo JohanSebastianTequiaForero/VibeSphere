@@ -1,46 +1,56 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-// 🔹 Crear el contexto
+// Crear contexto
 export const AuthContext = createContext();
 
-// 🔹 Hook personalizado para usar el contexto fácilmente
+// Hook para acceder al contexto
 export const useAuth = () => useContext(AuthContext);
 
-// 🔹 Proveedor del contexto (engloba toda la app)
+// Proveedor del contexto
 export const AuthProvider = ({ children }) => {
   const [usuario, setUsuario] = useState(null);
 
-  // ✅ Cargar usuario guardado del localStorage (persistencia al recargar la página)
+  // ✅ Cargar usuario desde localStorage al iniciar
   useEffect(() => {
     const storedUser = localStorage.getItem("usuario");
     if (storedUser) {
       try {
         setUsuario(JSON.parse(storedUser));
       } catch (error) {
-        console.error("Error al leer el usuario almacenado:", error);
+        console.error("Error al cargar usuario guardado:", error);
         localStorage.removeItem("usuario");
       }
     }
   }, []);
 
-  // ✅ Iniciar sesión → guarda usuario en estado y localStorage
+  // ✅ LOGIN SEGURO (no destruye foto_perfil ni datos antiguos)
   const login = (userData) => {
-    setUsuario(userData);
-    localStorage.setItem("usuario", JSON.stringify(userData));
+    // ✅ Determinar foto final (mantener actual si userData trae null)
+    const fotoFinal =
+      userData.foto_perfil !== null && userData.foto_perfil !== undefined
+        ? userData.foto_perfil
+        : usuario?.foto_perfil || null;
+
+    // ✅ Mezclar datos antiguos + nuevos sin borrar nada
+    const usuarioActualizado = {
+      ...usuario,   // mantiene lo anterior
+      ...userData,  // sobrescribe lo nuevo
+      foto_perfil: fotoFinal, // ✅ protege foto anterior
+    };
+
+    setUsuario(usuarioActualizado);
+    localStorage.setItem("usuario", JSON.stringify(usuarioActualizado));
   };
 
-  // ✅ Cerrar sesión → elimina usuario de estado y localStorage
+  // ✅ Logout normal
   const logout = () => {
     setUsuario(null);
     localStorage.removeItem("usuario");
   };
 
-  // 🔹 Valor que estará disponible para toda la app
-  const value = {
-    usuario,
-    login,
-    logout,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ usuario, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

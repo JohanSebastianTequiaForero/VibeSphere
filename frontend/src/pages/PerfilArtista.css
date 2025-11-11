@@ -189,3 +189,49 @@ button:hover {
     justify-content: center;
   }
 }
+.perfil-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 1.2em;
+  z-index: 1000;
+  color: #333;
+}
+
+.spinner {
+  border: 4px solid #ddd;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 10px;
+}
+
+.spinner.mini {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #ccc;
+  border-top: 3px solid #007bff;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.perfil-artista-card.bloqueado {
+  opacity: 0.6;
+  pointer-events: none;
+}
