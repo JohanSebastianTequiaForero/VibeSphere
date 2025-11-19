@@ -33,6 +33,10 @@ app.use("/api/artistas", artistaRoutes);
 const contratistaInfoRoutes = require("./src/routes/contratistaInfoRoutes");
 app.use("/api/contratistainfo", contratistaInfoRoutes);
 
+const publicacionesRoutes = require("./src/routes/publicacionesRoutes");
+app.use("/api/publicaciones", publicacionesRoutes);
+
+
 // ===============================
 // 4. Nuevas rutas: Vacantes y Postulaciones
 // ===============================

@@ -9,7 +9,6 @@ function PerfilArtista() {
 
   const [bio, setBio] = useState(usuario?.competencias || "");
 
-  // ✅ URL inicial corregida
   const [fotoPreview, setFotoPreview] = useState(
     usuario?.foto_perfil
       ? `http://localhost:5000/uploads/${usuario.foto_perfil}`
@@ -24,7 +23,6 @@ function PerfilArtista() {
   const [nuevaPublicacion, setNuevaPublicacion] = useState(null);
   const [imagenCargando, setImagenCargando] = useState(false);
 
-  // ✅ Cuando cambia usuario, actualizar datos
   useEffect(() => {
     if (usuario) {
       setBio(usuario.competencias || "");
@@ -36,20 +34,19 @@ function PerfilArtista() {
     }
   }, [usuario]);
 
-  // ✅ Cargar galería y stats
   useEffect(() => {
     const fetchDatos = async () => {
       try {
         const resPub = await fetch(`http://localhost:5000/api/publicaciones/${usuario.id}`);
         const dataPub = await resPub.json();
 
-        if (dataPub.success) {
-          setGaleria(dataPub.publicaciones);
-          setStats({
-            canciones: dataPub.canciones || 0,
-            videos: dataPub.videos || 0,
-            publicaciones: dataPub.publicaciones?.length || 0,
-          });
+        // <<=== CORRECCIÓN
+        if (!dataPub.error) {
+          setGaleria(dataPub);
+          setStats((prev) => ({
+            ...prev,
+            publicaciones: dataPub.length || 0,
+          }));
         }
       } catch (err) {
         console.error("Error al obtener datos:", err);
@@ -58,7 +55,6 @@ function PerfilArtista() {
     fetchDatos();
   }, [usuario.id]);
 
-  // ✅ Preview local al cambiar foto
   const handleFotoChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -73,7 +69,6 @@ function PerfilArtista() {
     setIsEdited(true);
   };
 
-  // ✅ Guardar cambios (sin perder foto)
   const guardarCambios = async () => {
     const formData = new FormData();
     formData.append("competencias", bio);
@@ -96,7 +91,6 @@ function PerfilArtista() {
         return;
       }
 
-      // ✅ Usar la nueva foto *solo si el backend la envió*
       const fotoFinal =
         data.data.foto_perfil || usuario.foto_perfil;
 
@@ -105,17 +99,15 @@ function PerfilArtista() {
           ? `http://localhost:5000/uploads/${fotoFinal}?v=${Date.now()}`
           : "/default-avatar.png";
 
-      // ✅ Actualizar usuario correctamente
       const usuarioActualizado = {
         ...usuario,
         competencias: bio,
-        foto_perfil: fotoFinal, // <-- mantiene la anterior si viene null
+        foto_perfil: fotoFinal,
       };
 
       login(usuarioActualizado);
       localStorage.setItem("usuario", JSON.stringify(usuarioActualizado));
 
-      // ✅ Actualizar foto en pantalla
       setFotoPreview(fotoFinalURL);
       setImagenCargando(false);
       setFotoFile(null);
@@ -130,13 +122,15 @@ function PerfilArtista() {
     }
   };
 
-  // ✅ Subir nueva publicación
+  // -------------------------------------------------
+  // SUBIR PUBLICACIÓN — CORREGIDO
+  // -------------------------------------------------
   const handleNuevaPublicacion = async () => {
     if (!nuevaPublicacion) return alert("Selecciona una imagen para subir");
 
     const formData = new FormData();
-    formData.append("imagen", nuevaPublicacion);
-    formData.append("artista_id", usuario.id);
+    formData.append("archivo", nuevaPublicacion);
+    formData.append("usuario_id", usuario.id);
 
     try {
       setLoading(true);
@@ -148,8 +142,9 @@ function PerfilArtista() {
 
       const data = await res.json();
 
-      if (data.success) {
-        setGaleria((prev) => [...prev, data.publicacion]);
+      // <<=== CAMBIO PRINCIPAL
+      if (!data.error) {
+        setGaleria((prev) => [...prev, data]);
         setStats((prev) => ({
           ...prev,
           publicaciones: prev.publicaciones + 1,
@@ -167,104 +162,88 @@ function PerfilArtista() {
     }
   };
 
-  return (
-    <div className="perfil-artista-wrapper">
-      {loading && (
-        <div className="perfil-loading">
-          <div className="spinner"></div>
-          <p>Actualizando perfil...</p>
-        </div>
-      )}
+return (
+  <div className="perfil-artista-wrapper">
 
-      <div className={`perfil-artista-card ${loading ? "bloqueado" : ""}`}>
-        <div className="perfil-header">
-          <div className="perfil-foto-container">
+    {/* ENCABEZADO */}
+    <div className="perfil-header">
+      <div className="perfil-foto">
+        <img
+          src={fotoPreview}
+          alt="Foto de perfil"
+          className={imagenCargando ? "cargando" : ""}
+        />
 
-            {imagenCargando && <div className="spinner mini"></div>}
+        <label className="btn-cambiar-foto">
+          Cambiar foto
+          <input type="file" accept="image/*" onChange={handleFotoChange} />
+        </label>
+      </div>
 
-            <img
-              src={fotoPreview}
-              alt="Foto perfil"
-              className="perfil-foto"
-              onError={(e) => (e.target.src = "/default-avatar.png")}
-              onLoad={() => setImagenCargando(false)}
-            />
+      <div className="perfil-info">
+        <h2 className="perfil-nombre">{usuario?.nombre}</h2>
 
-            <label className="btn-cambiar-foto">
-              Cambiar foto
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFotoChange}
-              />
-            </label>
-          </div>
-
-          <div className="perfil-info">
-            <h2>{usuario.nombre}</h2>
-            <p className="rol">🎤 Artista</p>
-            <p className="correo">{usuario.correo}</p>
-
-            <div className="perfil-stats">
-              <div><strong>{stats.canciones}</strong> Canciones</div>
-              <div><strong>{stats.videos}</strong> Videos</div>
-              <div><strong>{stats.publicaciones}</strong> Publicaciones</div>
-            </div>
-
-            <textarea
-              className="perfil-bio"
-              value={bio}
-              onChange={handleBioChange}
-              placeholder="Describe tu estilo o trayectoria artística..."
-            />
-          </div>
+        <div className="perfil-stats">
+          <p><strong>{stats.publicaciones}</strong> publicaciones</p>
         </div>
 
-        <div className="perfil-botones">
-          {isEdited && !loading && (
-            <button className="btn-guardar" onClick={guardarCambios}>
-              Guardar cambios
-            </button>
-          )}
+        <textarea
+          value={bio}
+          onChange={handleBioChange}
+          className="perfil-bio"
+        />
 
-          <label className="btn-subir">
-            Subir nueva publicación
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => setNuevaPublicacion(e.target.files[0])}
-            />
-          </label>
-
-          <button className="btn-publicar" onClick={handleNuevaPublicacion}>
-            Publicar
+        {isEdited && (
+          <button onClick={guardarCambios} className="btn-guardar" disabled={loading}>
+            {loading ? "Guardando..." : "Guardar cambios"}
           </button>
-
-          <button className="btn-editar" onClick={() => navigate("/home")}>
-            Ir al inicio
-          </button>
-        </div>
-
-        <div className="perfil-galeria">
-          {galeria.length > 0 ? (
-            <div className="galeria-grid">
-              {galeria.map((item) => (
-                <div key={item.id} className="galeria-item">
-                  <img
-                    src={`http://localhost:5000/uploads/${item.imagen}`}
-                    alt={item.id}
-                    onError={(e) => (e.target.src = "/default-avatar.png")}
-                  />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="sin-publicaciones">Aún no tienes publicaciones 🎵</p>
-          )}
-        </div>
+        )}
       </div>
     </div>
-  );
+
+    <hr className="division" />
+
+    {/* SUBIR PUBLICACIÓN */}
+    <div className="subir-publicacion">
+      <label className="btn-subir-publicacion">
+        Seleccionar imagen
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setNuevaPublicacion(e.target.files[0])}
+        />
+      </label>
+
+      <button
+        className="btn-publicar"
+        onClick={handleNuevaPublicacion}
+        disabled={loading}
+      >
+        {loading ? "Subiendo..." : "Publicar"}
+      </button>
+    </div>
+
+    {/* GALERÍA TIPO INSTAGRAM */}
+    <div className="perfil-galeria">
+      {galeria.length > 0 ? (
+        <div className="galeria-grid">
+          {galeria.map((item) => (
+            <div key={item.id} className="galeria-item">
+              <img
+                src={`http://localhost:5000${item.archivo_url}`}
+                alt={item.id}
+                onError={(e) => (e.target.src = "/default-avatar.png")}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="sin-publicaciones">Aún no tienes publicaciones 🎵</p>
+      )}
+    </div>
+
+  </div>
+);
 }
 
 export default PerfilArtista;
