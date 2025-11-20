@@ -1,14 +1,13 @@
-// src/controllers/publicacionesController.js
 const path = require("path");
 const fs = require("fs");
 const Publicaciones = require("../models/publicaciones");
 
-// Helper para obtener usuario_id (desde req.user si hay auth, sino desde body)
+// Si tienes auth puedes obtener usuario desde req.user
 function obtenerUsuarioId(req) {
   if (req.user && (req.user.usuario_id || req.user.id)) {
     return req.user.usuario_id || req.user.id;
   }
-  // fallback al body (frontend puede enviar usuario_id en FormData)
+  // fallback si envían en el body
   return req.body.usuario_id ? Number(req.body.usuario_id) : null;
 }
 
@@ -17,22 +16,21 @@ exports.crearPublicacion = async (req, res) => {
     const usuario_id = obtenerUsuarioId(req);
     if (!usuario_id) return res.status(400).json({ error: "usuario_id requerido" });
 
-    // Multer puso el archivo en req.file
     const file = req.file;
     const descripcion = req.body.descripcion || null;
 
     if (!file) {
-      // permitir publicaciones solo texto si quieres: aquí lo consideramos obligatorio
-      return res.status(400).json({ error: "Se requiere archivo (imagen o video)." });
+      return res.status(400).json({ error: "Debes subir una imagen o un video." });
     }
 
     const nombre_archivo = file.filename;
-    // archivo_url público que consumirá el frontend
     const archivo_url = `/uploads/publicaciones/${nombre_archivo}`;
 
-    // Determinar tipo_publicacion según mimetype
     const mimetype = file.mimetype || "";
-    const tipo_publicacion = mimetype.startsWith("image") ? "imagen" : mimetype.startsWith("video") ? "video" : "otro";
+    const tipo_publicacion =
+      mimetype.startsWith("image") ? "imagen" :
+      mimetype.startsWith("video") ? "video" :
+      "otro";
 
     const result = await Publicaciones.crear({
       usuario_id,
@@ -51,15 +49,13 @@ exports.crearPublicacion = async (req, res) => {
 
   } catch (error) {
     console.error("Error crearPublicacion:", error);
-    res.status(500).json({ error: "Error al crear la publicación" });
+    res.status(500).json({ error: "Error al crear publicación" });
   }
 };
 
 exports.obtenerPublicacionesUsuario = async (req, res) => {
   try {
     const usuario_id = req.params.id;
-    if (!usuario_id) return res.status(400).json({ error: "usuario_id requerido" });
-
     const publicaciones = await Publicaciones.obtenerPorUsuario(usuario_id);
     res.json(publicaciones);
   } catch (error) {
@@ -71,30 +67,36 @@ exports.obtenerPublicacionesUsuario = async (req, res) => {
 exports.eliminarPublicacion = async (req, res) => {
   try {
     const publicacion_id = req.params.id;
-    const publicacion = await Publicaciones.obtenerPorId(publicacion_id);
-    if (!publicacion) return res.status(404).json({ error: "Publicación no encontrada" });
 
-    // opcional: validar que req.user sea dueño de la publicación
+    const publicacion = await Publicaciones.obtenerPorId(publicacion_id);
+
+    if (!publicacion) {
+      return res.status(404).json({ error: "Publicación no encontrada" });
+    }
+
+    // 🔐 validar dueño (si estás usando auth)
     if (req.user && (req.user.usuario_id || req.user.id)) {
-      const usuarioIdToken = req.user.usuario_id || req.user.id;
-      if (usuarioIdToken !== publicacion.usuario_id) {
-        return res.status(403).json({ error: "No autorizado para eliminar esta publicación" });
+      const userId = req.user.usuario_id || req.user.id;
+      if (userId !== publicacion.usuario_id) {
+        return res.status(403).json({ error: "No autorizado" });
       }
     }
 
-    // borrar archivo físico
+    // 🗑 borrar archivo físico
     if (publicacion.nombre_archivo) {
       const filePath = path.join(__dirname, "../../uploads/publicaciones", publicacion.nombre_archivo);
+
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
       }
     }
 
     await Publicaciones.eliminar(publicacion_id);
-    res.json({ mensaje: "Publicación eliminada" });
+
+    res.json({ mensaje: "Publicación eliminada correctamente" });
 
   } catch (error) {
     console.error("Error eliminarPublicacion:", error);
-    res.status(500).json({ error: "Error al eliminar publicación" });
+    res.status(500).json({ error: "Error al eliminar la publicación" });
   }
 };

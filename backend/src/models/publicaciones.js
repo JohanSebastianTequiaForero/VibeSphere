@@ -34,7 +34,9 @@ const Publicaciones = {
   async obtenerPorId(publicacion_id) {
     const sql = `SELECT * FROM publicaciones WHERE publicacion_id = ?`;
     const [rows] = await db.execute(sql, [publicacion_id]);
-    return rows[0];
+    
+    // ⛔ YA NO DEVUELVO rows[0]
+    return rows.length > 0 ? rows[0] : null; 
   },
 
   async eliminar(publicacion_id) {

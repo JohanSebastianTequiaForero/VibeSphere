@@ -1,188 +1,323 @@
-/* ========================================
-   CONTENEDOR PRINCIPAL
-=========================================*/
+/* GENERAL */
 .perfil-artista-wrapper {
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
   padding: 20px;
-  font-family: system-ui, sans-serif;
 }
 
-
-
-/* ========================================
-   ENCABEZADO
-=========================================*/
+/* HEADER MODERNO */
 .perfil-header {
   display: flex;
   align-items: center;
   gap: 25px;
-  margin-bottom: 30px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  margin-bottom: 25px;
 }
 
-
-
-/* ========================================
-   FOTO DE PERFIL
-=========================================*/
+/* FOTO CON ARO DEGRADADO */
 .perfil-foto {
   position: relative;
-  width: 160px;
-  height: 160px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid #e0e0e0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f3f3f3;
+  padding: 4px;
+  background: linear-gradient(135deg, #ff0080, #6a00ff, #00eaff);
 }
 
 .perfil-foto img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
   border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #111;
 }
 
-/* Botón cambiar foto */
+/* BOTÓN CAMBIAR FOTO BONITO */
 .btn-cambiar-foto {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  font-size: 13px;
-  background: rgba(0, 0, 0, 0.55);
+  display: inline-block;
+  margin-top: 10px;
+  background: #6a00ff;
+  background: linear-gradient(135deg, #6a00ff, #ff0080);
+  padding: 7px 14px;
+  border-radius: 8px;
   color: white;
-  text-align: center;
-  padding: 6px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+.btn-cambiar-foto:hover {
+  opacity: 0.8;
+}
+
+/* INFORMACIÓN */
+.perfil-info {
+  flex: 1;
+}
+
+.perfil-info h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* ESTADÍSTICAS MODERNAS */
+.perfil-info p {
+  font-size: 15px;
+  color: #aaa;
+  margin-bottom: 10px;
+}
+
+/* BIO */
+.perfil-bio {
+  width: 100%;
+  height: 90px;
+  resize: none;
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+/* BOTÓN GUARDAR MODERNO */
+.btn-guardar {
+  margin-top: 12px;
+  padding: 9px 18px;
+  background: #00a8ff;
+  background: linear-gradient(135deg, #00a8ff, #0077ff);
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  letter-spacing: 0.3px;
+}
+.btn-guardar:hover {
+  opacity: 0.9;
+}
+
+
+.perfil-foto img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .btn-cambiar-foto input {
   display: none;
 }
 
-
-
-/* ========================================
-   INFORMACIÓN DEL ARTISTA
-=========================================*/
-.perfil-info {
-  flex: 1;
-}
-
-.perfil-nombre {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0;
-}
-
-.perfil-stats {
-  display: flex;
-  gap: 20px;
-  margin: 10px 0;
-  font-size: 15px;
-}
-
-.perfil-bio {
-  width: 100%;
-  min-height: 70px;
-  padding: 10px;
-  resize: none;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+.btn-cambiar-foto {
+  display: inline-block;
   margin-top: 10px;
+  background: #222;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.perfil-info textarea {
+  width: 100%;
+  height: 80px;
+  resize: none;
 }
 
 .btn-guardar {
   margin-top: 10px;
+  background: #0095f6;
+  color: white;
   padding: 8px 14px;
-  background: #111;
-  color: white;
-  border: none;
   border-radius: 6px;
   cursor: pointer;
 }
 
+/* ================================
+   SUBIR PUBLICACIÓN - MODERNO IG
+   ================================ */
 
-
-/* ========================================
-   DIVISIÓN
-=========================================*/
-.division {
-  margin: 25px 0;
-  opacity: 0.4;
+.subir-publicacion-modern {
+  margin-top: 35px;
+  width: 100%;
 }
 
-
-
-/* ========================================
-   SUBIR PUBLICACIÓN
-=========================================*/
-.subir-publicacion {
-  padding: 15px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 25px;
-}
-
-.btn-subir-publicacion {
-  background: #111;
-  color: white;
-  padding: 10px 14px;
-  border-radius: 6px;
+/* Caja para arrastrar */
+.dropzone {
+  width: 100%;
+  background: #181818;
+  border: 2px dashed #555;
+  padding: 35px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 14px;
   cursor: pointer;
-  margin-right: 10px;
+  transition: 0.3s ease;
 }
 
-.btn-subir-publicacion input {
+.dropzone:hover {
+  border-color: #0095f6;
+  background: #1f1f1f;
+}
+
+.dropzone input {
   display: none;
 }
 
-.btn-publicar {
-  padding: 10px 14px;
+.dropzone-content {
+  text-align: center;
+  color: #ccc;
+}
+
+.dropzone-icon {
+  font-size: 45px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* PREVIEW MODERNO */
+.preview-modern {
+  margin-top: 20px;
+  background: #111;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid #333;
+}
+
+.preview-media {
+  width: 100%;
+  max-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview-modern img,
+.preview-modern video {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+/* Descripción moderna */
+.descripcion-modern {
+  margin-top: 15px;
+  width: 100%;
+  height: 70px;
+  resize: none;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  color: #eee;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.descripcion-modern:focus {
+  outline: none;
+  border-color: #0095f6;
+}
+
+/* Botón publicar moderno */
+.btn-publicar-modern {
+  margin-top: 15px;
+  width: 100%;
   background: #0095f6;
+  color: #fff;
+  padding: 12px 0;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-publicar-modern:hover {
+  background: #007bd1;
+}
+
+
+/* GALERÍA */
+.galeria-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.galeria-item img,
+.galeria-item video {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* MODAL (CENTRADO, TAMAÑO MODERADO) */
+.visor-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.visor-modal {
+  background: #111;
+  padding: 15px;
+  border-radius: 12px;
+  width: 70%;
+  max-width: 600px;
+  position: relative;
+  text-align: center;
+}
+
+.visor-modal img,
+.visor-modal video {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.btn-cerrar {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: transparent;
+  font-size: 22px;
   color: white;
   border: none;
+  cursor: pointer;
+}
+
+.btn-eliminar {
+  margin-top: 15px;
+  background: crimson;
+  color: white;
+  padding: 8px 14px;
   border-radius: 6px;
   cursor: pointer;
 }
 
-
-
-/* ========================================
-   GALERÍA ESTILO INSTAGRAM
-=========================================*/
-.perfil-galeria {
-  margin-top: 20px;
-}
-
-.galeria-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-}
-
-.galeria-item {
-  aspect-ratio: 1/1;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 5px;
-  background: black;
-}
-
-.galeria-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.sin-publicaciones {
-  text-align: center;
-  color: #777;
-  margin-top: 20px;
-  font-size: 15px;
+.visor-descripcion {
+  color: #ddd;
+  margin-top: 10px;
+  font-size: 14px;
 }
