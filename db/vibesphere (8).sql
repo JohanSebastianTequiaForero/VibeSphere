@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-10-2025 a las 06:25:07
+-- Tiempo de generación: 05-11-2025 a las 14:22:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -31,25 +31,32 @@ CREATE TABLE `artista_info` (
   `id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `competencias` text DEFAULT NULL,
-  `foto_perfil` varchar(255) DEFAULT NULL
+  `foto_perfil` varchar(255) DEFAULT NULL,
+  `fecha_actualizacion` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `artista_info`
 --
 
-INSERT INTO `artista_info` (`id`, `usuario_id`, `competencias`, `foto_perfil`) VALUES
-(1, 12, 'Soy cantante profesional con un titulo en música en la universidad de los andes', '1757024930907-music.jpg'),
-(2, 14, 'Artista musical de pop y rock,toco instrumentos como el piano,la guitarra y el ukelele ', '1757035707974-manu.jpg'),
-(3, 16, 'Salsero,me gusta tocar la trompeta,las maracas y la tambora', NULL),
-(4, 17, 'Toco el piano , amo la música moderna con letra romantica,pertenezco a un grupo musical', NULL),
-(5, 18, 'Soy un estudiante de música , y busco realizar mis prácticas para prender y seguir creciendo profesionalmente ', NULL),
-(6, 19, 'Toco el violín para todo tipo de evento', NULL),
-(7, 20, 'Cantante solista con mas de 5 años de experiencia en dirección de grupos musicales', NULL),
-(8, 21, 'amo la musica', '1757468517074-viol.jpg'),
-(9, 22, 'Me gusta mucho hacer de tus fiestas las mejores , he trabajado y participado en grandes eventos de electrónica', '1757470510633-elec.jpg'),
-(10, 26, 'Cantante', '1757544714988-direc.jpg'),
-(11, 29, 'Me gusta tocar la guitarra y la batería y estoy buscando trabajo. ', '1758831861889-bate.jpg');
+INSERT INTO `artista_info` (`id`, `usuario_id`, `competencias`, `foto_perfil`, `fecha_actualizacion`) VALUES
+(1, 12, 'Soy cantante profesional con un titulo en música en la universidad de los andes', '1757024930907-music.jpg', '2025-10-28 12:06:42'),
+(2, 14, 'Artista musical de pop y rock,toco instrumentos como el piano,la guitarra y el ukelele ', '1757035707974-manu.jpg', '2025-10-28 12:06:42'),
+(3, 16, 'Salsero,me gusta tocar la trompeta,las maracas y la tambora', NULL, '2025-10-28 12:06:42'),
+(4, 17, 'Toco el piano , amo la música moderna con letra romantica,pertenezco a un grupo musical', NULL, '2025-10-28 12:06:42'),
+(5, 18, 'Soy un estudiante de música , y busco realizar mis prácticas para prender y seguir creciendo profesionalmente ', NULL, '2025-10-28 12:06:42'),
+(6, 19, 'Toco el violín para todo tipo de evento', NULL, '2025-10-28 12:06:42'),
+(7, 20, 'Cantante solista con mas de 5 años de experiencia en dirección de grupos musicales', NULL, '2025-10-28 12:06:42'),
+(8, 21, 'amo la musica', '1757468517074-viol.jpg', '2025-10-28 12:06:42'),
+(9, 22, 'Me gusta mucho hacer de tus fiestas las mejores , he trabajado y participado en grandes eventos de electrónica', '1757470510633-elec.jpg', '2025-10-28 12:06:42'),
+(10, 26, 'Cantante', '1757544714988-direc.jpg', '2025-10-28 12:06:42'),
+(11, 29, 'Me gusta tocar la guitarra y la batería y estoy buscando trabajo. ', '1758831861889-bate.jpg', '2025-10-28 12:06:42'),
+(12, 33, 'Soy amante a la música, soy pianista y solista.', '1759327816308-sebas.jpg', '2025-10-28 12:06:42'),
+(13, 35, 'Soy cantante y profesora de música a niños pequeños', '1761701468957-37692015.jpg', '2025-10-28 20:31:08'),
+(14, 37, 'Soy integrante de una banda de rock y amo tocar diferentes lugares', '1761237236701-rock.jpg', '2025-10-28 12:06:42'),
+(15, 38, 'Cantante profesional, productor musical al genero vallenato', '1757024930907-music.jpg', '2025-10-28 12:25:59'),
+(16, 39, 'Soy la mejor cantante de musica pop.', '1761696226577-58534416.jpg', '2025-10-28 19:03:46'),
+(18, 44, 'Me gusta bailar y cantar', '1761704783960-WhatsApp Image 2025-10-28 at 9.18.05 PM.jpeg', '2025-10-28 21:26:24');
 
 -- --------------------------------------------------------
 
@@ -62,7 +69,9 @@ CREATE TABLE `canciones` (
   `usuario_id` int(11) NOT NULL,
   `titulo` varchar(150) NOT NULL,
   `archivo_mp3` varchar(255) DEFAULT NULL,
-  `fecha_creacion` datetime DEFAULT current_timestamp()
+  `url_youtube` varchar(255) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -97,8 +106,17 @@ CREATE TABLE `contratista_info` (
   `usuario_id` int(11) NOT NULL,
   `categoria_id` int(11) NOT NULL,
   `descripcion` text DEFAULT NULL,
-  `foto_perfil` varchar(255) DEFAULT NULL
+  `foto_perfil` varchar(255) DEFAULT NULL,
+  `fecha_actualizacion` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `contratista_info`
+--
+
+INSERT INTO `contratista_info` (`id`, `usuario_id`, `categoria_id`, `descripcion`, `foto_perfil`, `fecha_actualizacion`) VALUES
+(1, 32, 2, 'Somos un grupo musical lleno de arte , en donde encontraras nuevos amigos con la pasión musical al mil.', '1759318540144-grupo.jpg', '2025-10-28 20:17:22'),
+(2, 34, 2, 'La mejor banda de rock en la que podras participar ', '1761740046896-534382588.jpg', '2025-10-29 07:14:06');
 
 -- --------------------------------------------------------
 
@@ -179,44 +197,54 @@ CREATE TABLE `usuarios` (
   `password` varchar(255) NOT NULL,
   `rol_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `verificado` tinyint(1) DEFAULT 0,
+  `token_verificacion` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`usuario_id`, `nombre_usuario`, `nombre`, `apellidos`, `fecha_nacimiento`, `correo`, `password`, `rol_id`, `created_at`, `updated_at`) VALUES
-(1, 'temp_user_1', 'Carlos', 'Gómez', '2000-01-01', 'carlos@example.com', '$2b$10$aG12yvNnxDEWcALJhllhSOHXbQRvejCdG0jHlZxRyQTFAaTl2nZ8q', 1, '2025-09-01 18:34:14', '2025-09-25 15:28:12'),
-(2, 'temp_user_2', 'Ana', 'López', '2000-01-01', 'ana@example.com', '$2b$10$hwBMUdmz3Vjo3M0ypYBIpuuiMQkRYGZQh0s3Nbn01LyiG2ADZxOka', 2, '2025-09-01 18:34:48', '2025-09-25 15:28:12'),
-(3, 'Catica_music', 'Catalina', 'Moreno Diaz', '2000-01-01', 'catatalinamore@gmail.com', '$2b$10$yqnyVqaNybegwXJ/TB0L7ee.N5IwTPIoBC2yy8sU9bIu/Nl7AwJlG', 1, '2025-09-02 06:02:32', '2025-09-25 15:28:12'),
-(4, 'Instituto letras de la musica', 'Monica', 'Agudelo Torres', '2000-01-01', 'instituto.letras@educacion.edu.co', '$2b$10$lGMGhrvNZa/Q9rrg6jrrSe/Fz0kb0Kih/XcAMXKhpU2obu2haWAse', 2, '2025-09-02 06:14:49', '2025-09-25 15:28:12'),
-(5, 'JOSELE', 'Jose', 'Ceballos Cardoso', '2000-01-01', 'jose.ceballos23@hotmail.com', '$2b$10$xaGea5y5u44cCtF3TwMYpefluwCusxcF.y4mHdcCK/oF2D841EWjq', 2, '2025-09-03 21:56:54', '2025-09-25 15:28:13'),
-(6, 'Maluma_oficial', 'Juan', 'Londoño Arias', '2000-01-01', 'malumita.music@hotmail.com', '$2b$10$xO7c91LgM2dpxtPwPgiNe.7HpSIwgZxGzUDyW.ZVibecmX2YTyKDm', 1, '2025-09-03 22:04:35', '2025-09-25 15:28:13'),
-(7, 'AndresCepeda23', 'Andres', 'Cepeda', '2000-01-01', 'CepedaAndres23@gmail.com', '$2b$10$7xCcxPaUuBqHrIzA1YOyMeE6oEnqt/L8eygrj0lPnLVXqnwud61oa', 1, '2025-09-03 22:16:50', '2025-09-25 15:28:13'),
-(9, 'Sol_de_verano', 'Laura', 'Dominguez Rico', '2000-01-01', 'lauDomin@gmail.com', '$2b$10$R3DQfZToGVANC6yYsRVmquaQ8.f7pLn4S4GgFJeyQfmV/M2KGz2aa', 1, '2025-09-03 22:43:47', '2025-09-25 15:28:14'),
-(10, 'LaMega', 'Roberto', 'Galindo Mesa', '2000-01-01', 'Galindoberto543@gmail.com', '$2b$10$7r/.Nrw.ABJKGVQHsGi31ejjglnK8mAaf.biJlMguHDqr./X5eyum', 2, '2025-09-03 23:06:42', '2025-09-25 15:28:14'),
-(11, 'Pablito_parker', 'Pablo', 'Duarte Forero', '2000-01-01', 'Pablitoparker@gmail.com', '$2b$10$dREmenMzi6yK4U/V2hfCg.6kh.fpuD5PLyh8KWJT/5C7szymo5DXm', 1, '2025-09-04 17:04:18', '2025-09-25 15:28:14'),
-(12, 'Sofia', 'Zapata Lozano', 'LazapataSofi@hotmail.com', '2000-01-01', 'SofiZapata', '$2b$10$tcoroh2VJlHPv7WHDWHLQefL/f6kIktk/wV90iyoMRfrh7v/3M3s2', 1, '2025-09-04 17:28:50', '2025-09-25 15:28:14'),
-(13, 'Lucia', 'Jaramillo Vargas', 'vargasLu@musiclite.com', '2000-01-01', 'MusicLite', '$2b$10$KIdkzntAsZgIQAz0ZMMDUewEQbXVJA.Zn.wdNrI8e7bHK/CmzivLe', 2, '2025-09-04 17:30:29', '2025-09-25 15:28:15'),
-(14, 'Manuel', 'Medrano Lopez', 'manumedranito.music@gmail.com', '2000-01-01', 'Manuel_Medrano', '$2b$10$GwpM4SHj6y4cNhEIyy9q2.A7FrQPe7hTYNVZtXtIvyZdffYso1GAu', 1, '2025-09-04 20:28:27', '2025-09-25 15:28:15'),
-(15, 'Jose', 'Ceballos Cardoso', 'jose.ceballos23@hotmail.com', '2000-01-01', 'Maluma_baby', '$2b$10$d7JcJtphvKIGJtWxTixBEeFJRSeknao8phDevulrtdlhEc2LDhf0O', 2, '2025-09-04 21:44:55', '2025-09-25 15:28:15'),
-(16, 'Luis', 'Campos Ruiz', 'luisito_campo12@gmail.com', '2000-01-01', 'LuisCampos_offi', '$2b$10$eICdZVAR8C9BVMku3YS6iO2PR51sMa8v.zjsV6gwv/Pgzuo71r.Wu', 1, '2025-09-05 09:50:17', '2025-09-25 15:28:16'),
-(17, 'Olivia', 'Rodrigo Vargas', 'Vargasoliviaa@gmail.com', '2000-01-01', 'Olivia_Rodri', '$2b$10$YyFc1xXM4BONqnZNXMCZIObknXtxH6SWnhvlN2LI5Sk5srdcA8zyC', 1, '2025-09-09 08:40:58', '2025-09-25 15:28:16'),
-(18, 'Felipe', 'Turbay Olaya', 'turbay.pipe965@gmail.com', '2000-01-01', 'Pipe_Turya', '$2b$10$LFmFxhmZnH9TXfe5P7ux0u6xuIu0varE2eVpwX1qMvOKMQIS/bmIm', 1, '2025-09-09 18:55:09', '2025-09-25 15:28:16'),
-(19, 'Jhon', 'Pabon Sucre', 'elviolin.solitario@gimail.com', '2000-01-01', 'ElViolin', '$2b$10$aYzlt2ifjNmorXmITMqWrO/sUcsUhlMLv0K3j3/vdIzjYSIGl6VX6', 1, '2025-09-09 19:20:01', '2025-09-25 15:28:17'),
-(20, 'Jeisson', 'Arias Rojas', 'jessrojas659@hotmail.com', '2000-01-01', 'JessArias', '$2b$10$kBI4ZhbrZuxXC1sRN3I/7.mnn32yDcrMYGDND44sNuRShVTqpH7qu', 1, '2025-09-09 19:35:03', '2025-09-25 15:28:17'),
-(21, 'prueba1', 'prueba1', 'joto ipo', '2000-01-01', 'prueba1@email.com', '$2b$10$1n9rxTckiwRZaUcZ/zwhTuU1cnKAhcuMLFY1G9AJYYDMDMl6ptwPO', 1, '2025-09-09 20:41:57', '2025-09-25 15:28:17'),
-(22, 'Carlos_music', 'Carlos', 'Perez Gutiérrez ', '2000-01-01', 'carlitosguiti24@hotmail.com', '$2b$10$xCjYBD5BKNkqAiHtEcZvwOYgfE0KhC4PjowzliDO/y9.cDMPYR0d2', 1, '2025-09-09 21:15:10', '2025-09-25 15:28:17'),
-(23, 'Tropicana_bacanisima', 'Johan', 'Quintero Lopez', '2000-01-01', 'lop_johan65@tropicana.co', '$2b$10$CS23b/QF8scP2gjIXwfPReEtkdvusAOJdEfInUiG8pRHCPltN43Au', 2, '2025-09-10 06:20:37', '2025-09-25 15:28:18'),
-(24, 'Javi_Dj', 'Javier', 'Quiroga Ramirez', NULL, 'javi.quiroga@gmail.com', '$2b$10$J7FX8fum5aDHwSUqU.y/nens664fRfnjE0pauTYEdds0JP5Kcyjwi', 2, '2025-09-10 06:35:33', '2025-09-25 15:28:18'),
-(25, 'Los_U', 'Mateo', 'Triana Acevedo', NULL, 'matetriana349@gmail.com', '$2b$10$bkh5VU14auKM0sA58u7yd.q2ns/gH6c98urIemJFljgh9bCGbH8Fu', 2, '2025-09-10 06:56:32', '2025-09-25 15:28:18'),
-(26, 'Saris_TM', 'Sara', 'Torres Mendoza', '2004-04-02', 'sarisstor23@hotmail.com', '$2b$10$1FQmA2hkbYNPvOXsnOq6EeSTSHyfl1mz4xyAoYtKg7IajV3uWgstG', 1, '2025-09-10 17:51:55', '2025-09-25 15:28:18'),
-(27, 'Universidad_Distrital', 'Erika', 'Serrano Jimenez', '2002-07-23', 'erikaSerranez@gmail.com', '$2b$10$emvkRm/P8an1evrILsAgS.HsYtx1ZHvH.Wbhc8fSs7UHn62MSFUo.', 2, '2025-09-10 21:03:34', '2025-09-25 15:28:18'),
-(28, 'Eldazaa', 'Juan', 'Daza', '2001-05-01', 'Eldaza.juan@gmail.com', '$2b$10$l8oygtQ9Oy3MqLW.hvVlx.f4ZUyqfl9TDq1VR1AATINPnUfJx0KDm', 2, '2025-09-25 14:58:43', '2025-09-25 15:28:19'),
-(29, 'Alejo_Alegro', 'Alejandro', 'Guzman', '1985-05-06', 'alejito.guzmaa@hotmail.com', '$2b$10$kjKJFYgzlCQYkdGcoTJmuuND8sOe0N9S8OmwCAKF11N4RQ3zAJk3W', 1, '2025-09-25 15:24:21', '2025-09-25 15:24:21'),
-(30, 'Eventos_Fercha', 'Fernanda', 'Alarcon Gutierrez', '1995-03-25', 'fernandis.fercha@gmail.com', '$2b$10$wr2C8hYGuKMWrj2x1z7xl.Z5CQ3Fbynow96A/fLsK1C.qVckSLh6C', 2, '2025-09-25 16:02:15', '2025-09-25 16:02:15'),
-(31, 'testuser', 'Test', 'User', NULL, 'test@example.com', '$2b$10$abcdefghijklmnopqrstuv', 1, '2025-09-25 17:16:25', '2025-09-25 17:16:25');
+INSERT INTO `usuarios` (`usuario_id`, `nombre_usuario`, `nombre`, `apellidos`, `fecha_nacimiento`, `correo`, `password`, `rol_id`, `created_at`, `updated_at`, `verificado`, `token_verificacion`) VALUES
+(1, 'temp_user_1', 'Carlos', 'Gómez', '2000-01-01', 'carlos@example.com', '$2b$10$aG12yvNnxDEWcALJhllhSOHXbQRvejCdG0jHlZxRyQTFAaTl2nZ8q', 1, '2025-09-01 18:34:14', '2025-09-25 15:28:12', 0, NULL),
+(2, 'temp_user_2', 'Ana', 'López', '2000-01-01', 'ana@example.com', '$2b$10$hwBMUdmz3Vjo3M0ypYBIpuuiMQkRYGZQh0s3Nbn01LyiG2ADZxOka', 2, '2025-09-01 18:34:48', '2025-09-25 15:28:12', 0, NULL),
+(3, 'Catica_music', 'Catalina', 'Moreno Diaz', '2000-01-01', 'catatalinamore@gmail.com', '$2b$10$yqnyVqaNybegwXJ/TB0L7ee.N5IwTPIoBC2yy8sU9bIu/Nl7AwJlG', 1, '2025-09-02 06:02:32', '2025-09-25 15:28:12', 0, NULL),
+(4, 'Instituto letras de la musica', 'Monica', 'Agudelo Torres', '2000-01-01', 'instituto.letras@educacion.edu.co', '$2b$10$lGMGhrvNZa/Q9rrg6jrrSe/Fz0kb0Kih/XcAMXKhpU2obu2haWAse', 2, '2025-09-02 06:14:49', '2025-09-25 15:28:12', 0, NULL),
+(5, 'JOSELE', 'Jose', 'Ceballos Cardoso', '2000-01-01', 'jose.ceballos23@hotmail.com', '$2b$10$xaGea5y5u44cCtF3TwMYpefluwCusxcF.y4mHdcCK/oF2D841EWjq', 2, '2025-09-03 21:56:54', '2025-09-25 15:28:13', 0, NULL),
+(6, 'Maluma_oficial', 'Juan', 'Londoño Arias', '2000-01-01', 'malumita.music@hotmail.com', '$2b$10$xO7c91LgM2dpxtPwPgiNe.7HpSIwgZxGzUDyW.ZVibecmX2YTyKDm', 1, '2025-09-03 22:04:35', '2025-09-25 15:28:13', 0, NULL),
+(7, 'AndresCepeda23', 'Andres', 'Cepeda', '2000-01-01', 'CepedaAndres23@gmail.com', '$2b$10$7xCcxPaUuBqHrIzA1YOyMeE6oEnqt/L8eygrj0lPnLVXqnwud61oa', 1, '2025-09-03 22:16:50', '2025-09-25 15:28:13', 0, NULL),
+(9, 'Sol_de_verano', 'Laura', 'Dominguez Rico', '2000-01-01', 'lauDomin@gmail.com', '$2b$10$R3DQfZToGVANC6yYsRVmquaQ8.f7pLn4S4GgFJeyQfmV/M2KGz2aa', 1, '2025-09-03 22:43:47', '2025-09-25 15:28:14', 0, NULL),
+(10, 'LaMega', 'Roberto', 'Galindo Mesa', '2000-01-01', 'Galindoberto543@gmail.com', '$2b$10$7r/.Nrw.ABJKGVQHsGi31ejjglnK8mAaf.biJlMguHDqr./X5eyum', 2, '2025-09-03 23:06:42', '2025-09-25 15:28:14', 0, NULL),
+(11, 'Pablito_parker', 'Pablo', 'Duarte Forero', '2000-01-01', 'Pablitoparker@gmail.com', '$2b$10$dREmenMzi6yK4U/V2hfCg.6kh.fpuD5PLyh8KWJT/5C7szymo5DXm', 1, '2025-09-04 17:04:18', '2025-09-25 15:28:14', 0, NULL),
+(12, 'Sofia', 'Zapata Lozano', 'LazapataSofi@hotmail.com', '2000-01-01', 'SofiZapata', '$2b$10$tcoroh2VJlHPv7WHDWHLQefL/f6kIktk/wV90iyoMRfrh7v/3M3s2', 1, '2025-09-04 17:28:50', '2025-09-25 15:28:14', 0, NULL),
+(13, 'Lucia', 'Jaramillo Vargas', 'vargasLu@musiclite.com', '2000-01-01', 'MusicLite', '$2b$10$KIdkzntAsZgIQAz0ZMMDUewEQbXVJA.Zn.wdNrI8e7bHK/CmzivLe', 2, '2025-09-04 17:30:29', '2025-09-25 15:28:15', 0, NULL),
+(14, 'Manuel', 'Medrano Lopez', 'manumedranito.music@gmail.com', '2000-01-01', 'Manuel_Medrano', '$2b$10$GwpM4SHj6y4cNhEIyy9q2.A7FrQPe7hTYNVZtXtIvyZdffYso1GAu', 1, '2025-09-04 20:28:27', '2025-09-25 15:28:15', 0, NULL),
+(15, 'Jose', 'Ceballos Cardoso', 'jose.ceballos23@hotmail.com', '2000-01-01', 'Maluma_baby', '$2b$10$d7JcJtphvKIGJtWxTixBEeFJRSeknao8phDevulrtdlhEc2LDhf0O', 2, '2025-09-04 21:44:55', '2025-09-25 15:28:15', 0, NULL),
+(16, 'Luis', 'Campos Ruiz', 'luisito_campo12@gmail.com', '2000-01-01', 'LuisCampos_offi', '$2b$10$eICdZVAR8C9BVMku3YS6iO2PR51sMa8v.zjsV6gwv/Pgzuo71r.Wu', 1, '2025-09-05 09:50:17', '2025-09-25 15:28:16', 0, NULL),
+(17, 'Olivia', 'Rodrigo Vargas', 'Vargasoliviaa@gmail.com', '2000-01-01', 'Olivia_Rodri', '$2b$10$YyFc1xXM4BONqnZNXMCZIObknXtxH6SWnhvlN2LI5Sk5srdcA8zyC', 1, '2025-09-09 08:40:58', '2025-09-25 15:28:16', 0, NULL),
+(18, 'Felipe', 'Turbay Olaya', 'turbay.pipe965@gmail.com', '2000-01-01', 'Pipe_Turya', '$2b$10$LFmFxhmZnH9TXfe5P7ux0u6xuIu0varE2eVpwX1qMvOKMQIS/bmIm', 1, '2025-09-09 18:55:09', '2025-09-25 15:28:16', 0, NULL),
+(19, 'Jhon', 'Pabon Sucre', 'elviolin.solitario@gimail.com', '2000-01-01', 'ElViolin', '$2b$10$aYzlt2ifjNmorXmITMqWrO/sUcsUhlMLv0K3j3/vdIzjYSIGl6VX6', 1, '2025-09-09 19:20:01', '2025-09-25 15:28:17', 0, NULL),
+(20, 'Jeisson', 'Arias Rojas', 'jessrojas659@hotmail.com', '2000-01-01', 'JessArias', '$2b$10$kBI4ZhbrZuxXC1sRN3I/7.mnn32yDcrMYGDND44sNuRShVTqpH7qu', 1, '2025-09-09 19:35:03', '2025-09-25 15:28:17', 0, NULL),
+(21, 'prueba1', 'prueba1', 'joto ipo', '2000-01-01', 'prueba1@email.com', '$2b$10$1n9rxTckiwRZaUcZ/zwhTuU1cnKAhcuMLFY1G9AJYYDMDMl6ptwPO', 1, '2025-09-09 20:41:57', '2025-09-25 15:28:17', 0, NULL),
+(22, 'Carlos_music', 'Carlos', 'Perez Gutiérrez ', '2000-01-01', 'carlitosguiti24@hotmail.com', '$2b$10$xCjYBD5BKNkqAiHtEcZvwOYgfE0KhC4PjowzliDO/y9.cDMPYR0d2', 1, '2025-09-09 21:15:10', '2025-09-25 15:28:17', 0, NULL),
+(23, 'Tropicana_bacanisima', 'Johan', 'Quintero Lopez', '2000-01-01', 'lop_johan65@tropicana.co', '$2b$10$CS23b/QF8scP2gjIXwfPReEtkdvusAOJdEfInUiG8pRHCPltN43Au', 2, '2025-09-10 06:20:37', '2025-09-25 15:28:18', 0, NULL),
+(24, 'Javi_Dj', 'Javier', 'Quiroga Ramirez', NULL, 'javi.quiroga@gmail.com', '$2b$10$J7FX8fum5aDHwSUqU.y/nens664fRfnjE0pauTYEdds0JP5Kcyjwi', 2, '2025-09-10 06:35:33', '2025-09-25 15:28:18', 0, NULL),
+(25, 'Los_U', 'Mateo', 'Triana Acevedo', NULL, 'matetriana349@gmail.com', '$2b$10$bkh5VU14auKM0sA58u7yd.q2ns/gH6c98urIemJFljgh9bCGbH8Fu', 2, '2025-09-10 06:56:32', '2025-09-25 15:28:18', 0, NULL),
+(26, 'Saris_TM', 'Sara', 'Torres Mendoza', '2004-04-02', 'sarisstor23@hotmail.com', '$2b$10$1FQmA2hkbYNPvOXsnOq6EeSTSHyfl1mz4xyAoYtKg7IajV3uWgstG', 1, '2025-09-10 17:51:55', '2025-09-25 15:28:18', 0, NULL),
+(27, 'Universidad_Distrital', 'Erika', 'Serrano Jimenez', '2002-07-23', 'erikaSerranez@gmail.com', '$2b$10$emvkRm/P8an1evrILsAgS.HsYtx1ZHvH.Wbhc8fSs7UHn62MSFUo.', 2, '2025-09-10 21:03:34', '2025-09-25 15:28:18', 0, NULL),
+(28, 'Eldazaa', 'Juan', 'Daza', '2001-05-01', 'Eldaza.juan@gmail.com', '$2b$10$l8oygtQ9Oy3MqLW.hvVlx.f4ZUyqfl9TDq1VR1AATINPnUfJx0KDm', 2, '2025-09-25 14:58:43', '2025-09-25 15:28:19', 0, NULL),
+(29, 'Alejo_Alegro', 'Alejandro', 'Guzman', '1985-05-06', 'alejito.guzmaa@hotmail.com', '$2b$10$kjKJFYgzlCQYkdGcoTJmuuND8sOe0N9S8OmwCAKF11N4RQ3zAJk3W', 1, '2025-09-25 15:24:21', '2025-09-25 15:24:21', 0, NULL),
+(30, 'Eventos_Fercha', 'Fernanda', 'Alarcon Gutierrez', '1995-03-25', 'fernandis.fercha@gmail.com', '$2b$10$wr2C8hYGuKMWrj2x1z7xl.Z5CQ3Fbynow96A/fLsK1C.qVckSLh6C', 2, '2025-09-25 16:02:15', '2025-09-25 16:02:15', 0, NULL),
+(31, 'testuser', 'Test', 'User', NULL, 'test@example.com', '$2b$10$abcdefghijklmnopqrstuv', 1, '2025-09-25 17:16:25', '2025-09-25 17:16:25', 0, NULL),
+(32, 'Kevin\'s', 'Kevin ', 'Mendez Yota', '2000-08-25', 'mendez.kevincito45@gmail.com', '$2b$10$4Ib9bss4CLIE6OxYgxdEXu2Uj3Zn2bWNh8Z93KaYWwEws..Dr5OBi', 2, '2025-10-01 06:35:40', '2025-10-01 06:35:40', 0, NULL),
+(33, 'Sebitas.TF', 'Johan', 'Tequia Forero', '2006-11-09', 'tequiasebastian460@gmail.com', '$2b$10$yaNJ8LaWt6PK4x0uFYsIuuXilNiyJWryCSRqGWowO7ArQakWxy61m', 1, '2025-10-01 09:10:16', '2025-10-01 09:10:46', 1, NULL),
+(34, 'Nico34', 'Brayan', 'Tequia F', '2000-11-06', 'nicolastequia25@gmail.com', '$2b$10$pNiyxgq7g9FTPlKhfl3Xe.k93nVJZQ6A4rmKHDo29KLerJLk2HKQS', 2, '2025-10-01 09:22:35', '2025-10-01 09:22:43', 1, NULL),
+(35, 'Maryoly_34', 'Maryoly', 'Forero', '1975-08-14', 'maryolyforero@gmail.com', '$2b$10$hDW.ykoTN5owj9R9XSgGDugDM1l4p.H7eHsyRJ79oNX/mDbuCJN1O', 1, '2025-10-22 19:12:45', '2025-10-22 19:13:16', 1, NULL),
+(37, 'Oscar_Per', 'Oscar', 'Peralta Diaz', '1999-04-19', 'oscarperal112@gmail', '$2b$10$Q64yxuaD8CaiiFt71ugEIuU3i69VQvTpSQhBFTpJUXzZ90HVQFox2', 1, '2025-10-23 11:33:56', '2025-10-23 11:33:56', 0, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJvc2NhcnBlcmFsMTEyQGdtYWlsIiwiaWF0IjoxNzYxMjM3MjM2LCJleHAiOjE3NjEyNDA4MzZ9.xmkXnTDuR2gt8WeMSPhqrpNyCqPumRvx_NWkxEK7mXY'),
+(38, 'Osquitar_76', 'Oscar', 'Gonzales Forero', '2007-02-14', 'oscarfergalico@gmail.com', '$2b$10$SgtIB2r6jSSOipZC3Etfd.BXX4g4/XqReY3WaRhfWSd/3DFRVKb1y', 1, '2025-10-27 10:39:37', '2025-10-27 10:41:38', 1, NULL),
+(39, 'yeral_preciosa', 'Yeraldin ', 'Olaya Rios', '2006-08-18', 'geraldinolaya88@gmail.com', '$2b$10$bOVdY4y7H9VY2XP1H/qlsu97Wras4oGBwDL2yBWDbysyXfeox65Vu', 1, '2025-10-27 11:37:06', '2025-10-27 11:37:33', 1, NULL),
+(44, '_a.nnnm.02_', 'Ana ', 'Guzman', '2006-12-31', 'anamariagmz31.10@gmail.com', '$2b$10$A33YmfzIJjudjFBhMn78GeW.aHQaKygdMGEicIqZSqnHBu0n6KhIG', 1, '2025-10-28 21:26:24', '2025-10-28 21:27:22', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -373,7 +401,7 @@ ALTER TABLE `vacantes`
 -- AUTO_INCREMENT de la tabla `artista_info`
 --
 ALTER TABLE `artista_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `canciones`
@@ -391,7 +419,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `contratista_info`
 --
 ALTER TABLE `contratista_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `contratos`
@@ -421,7 +449,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de la tabla `vacantes`
